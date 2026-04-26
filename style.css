@@ -75,6 +75,7 @@ strong { color: #173d34; }
 
 /* ---------- Profile header ---------- */
 .profile {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
@@ -91,6 +92,28 @@ strong { color: #173d34; }
   border: 1px solid var(--rule);
   border-radius: 8px;
   box-shadow: 0 2px 0 var(--bg-accent);
+}
+.profile::before,
+.profile::after {
+  content: "";
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  pointer-events: none;
+}
+.profile::before {
+  top: 12px;
+  left: 12px;
+  border-top: 2px solid rgba(63, 102, 89, 0.58);
+  border-left: 2px solid rgba(63, 102, 89, 0.58);
+  border-top-left-radius: 5px;
+}
+.profile::after {
+  right: 12px;
+  bottom: 12px;
+  border-right: 2px solid rgba(63, 102, 89, 0.58);
+  border-bottom: 2px solid rgba(63, 102, 89, 0.58);
+  border-bottom-right-radius: 5px;
 }
 
 .avatar { flex: 0 0 210px; }
