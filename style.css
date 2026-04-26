@@ -82,7 +82,12 @@ strong { color: #173d34; }
   justify-content: center;
   margin-bottom: 12px;
   padding: 24px 34px;
-  background: var(--bg-panel);
+  background:
+    radial-gradient(circle at 14% 22%, rgba(63, 102, 89, 0.055) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 68%, rgba(168, 116, 42, 0.045) 0 1px, transparent 1.5px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 42%),
+    var(--bg-panel);
+  background-size: 18px 18px, 22px 22px, 100% 100%, auto;
   border: 1px solid var(--rule);
   border-radius: 8px;
   box-shadow: 0 2px 0 var(--bg-accent);
