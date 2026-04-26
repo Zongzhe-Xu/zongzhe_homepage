@@ -151,6 +151,9 @@ ul li { margin-bottom: 6px; }
   min-width: 0;
   color: var(--news-text);
 }
+.news .news-text em {
+  color: #2f5147;
+}
 
 /* ---------- Experience / Education ---------- */
 .exp { list-style: none; padding-left: 0; }
