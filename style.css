@@ -1,22 +1,22 @@
 /* ============================================================
    Zongzhe Xu - academic homepage
-   Palette: warm light-brown / wooden tones
+   Palette: "Ink on Cream" — deep ink-blue accents on warm paper
    ============================================================ */
 
 :root {
-  /* Warm-neutral palette: mostly soft white, wood only on accents */
-  --bg:         #fbfaf7;  /* near-white with a hint of warmth */
-  --bg-panel:   #efe6d3;  /* parchment card (used sparingly) */
-  --bg-accent:  #e3d4b6;  /* sanded oak */
-  --rule:       #cdbb97;  /* wood grain */
+  /* Palette: "Ink on Cream" — deep ink-blue accents on warm paper. */
+  --bg:         #f7f3e9;  /* warm cream (solid, not washy) */
+  --bg-panel:   #ebe1c8;  /* kraft-paper card */
+  --bg-accent:  #d8c9a8;  /* darker kraft for badges */
+  --rule:       #bda882;  /* hairline paper grain */
 
-  --text:       #241810;  /* dark walnut ink */
-  --text-soft:  #3d2c1c;  /* deep brown body */
-  --muted:      #79614a;  /* taupe for meta text */
+  --text:       #141821;  /* near-black ink */
+  --text-soft:  #2a3142;  /* body copy ink */
+  --muted:      #6d685b;  /* warm taupe for meta text */
 
-  --link:       #7a3d16;  /* deeper saddle brown */
-  --link-hover: #b8691d;  /* rich amber */
-  --accent:     #8c5a2e;  /* medium wood */
+  --link:       #244b72;  /* deep ink-blue */
+  --link-hover: #c37720;  /* warm amber/gold on hover */
+  --accent:     #244b72;  /* ink-blue for rules, badges, borders */
 }
 
 * { box-sizing: border-box; }
@@ -55,7 +55,7 @@ h1, h2, h3 {
 h1 {
   font-size: 2rem;
   margin: 0 0 4px;
-  color: #2e1f0f;
+  color: var(--text);
 }
 
 h2 {
@@ -63,13 +63,13 @@ h2 {
   margin: 40px 0 14px;
   padding-bottom: 6px;
   border-bottom: 2px solid var(--accent);
-  color: #3a2b1a;
+  color: var(--text);
 }
 
 p { margin: 0 0 12px; }
 
 em { color: var(--text-soft); }
-strong { color: #2e1f0f; }
+strong { color: var(--text); }
 
 /* ---------- Profile header ---------- */
 .profile {
@@ -94,7 +94,7 @@ strong { color: #2e1f0f; }
   object-fit: cover;
   border: 3px solid var(--accent);
   background: var(--bg-accent);
-  box-shadow: 0 3px 10px rgba(100, 60, 20, 0.15);
+  box-shadow: 0 3px 10px rgba(20, 24, 33, 0.12);
 }
 
 .profile-info {
@@ -120,24 +120,28 @@ ul li { margin-bottom: 6px; }
 .interests { list-style: square; }
 .interests li::marker { color: var(--accent); }
 
-.news { list-style: none; padding-left: 0; margin-left: 0; }
+.news {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .news li {
-  display: flex;
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  column-gap: 14px;
   align-items: baseline;
-  gap: 14px;
-  padding: 6px 0;
+  padding: 8px 2px;
   border-bottom: 1px dashed var(--rule);
 }
 .news li:last-child { border-bottom: none; }
 .news .date {
-  flex: 0 0 116px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   font-family: "Courier New", Courier, monospace;
   font-size: 0.92rem;
   white-space: nowrap;
 }
-.news .news-text { flex: 1 1 auto; min-width: 0; }
+.news .news-text { min-width: 0; }
 
 /* ---------- Experience / Education ---------- */
 .exp { list-style: none; padding-left: 0; }
@@ -180,12 +184,12 @@ ul li { margin-bottom: 6px; }
   border: 1px solid var(--rule);
   background: var(--bg-panel);
   border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(100, 60, 20, 0.12);
+  box-shadow: 0 1px 4px rgba(20, 24, 33, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .pub-fig a:hover img {
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(100, 60, 20, 0.2);
+  box-shadow: 0 4px 10px rgba(20, 24, 33, 0.18);
 }
 
 .pub-info { flex: 1 1 auto; min-width: 0; }
@@ -210,11 +214,11 @@ ul li { margin-bottom: 6px; }
   margin-bottom: 4px;
   line-height: 1.35;
 }
-.pub .title a { color: #2e1f0f; }
+.pub .title a { color: var(--text); }
 .pub .title a:hover { color: var(--link-hover); }
 
 .pub .authors { margin-bottom: 2px; color: var(--text-soft); }
-.pub .authors strong { color: #2e1f0f; }
+.pub .authors strong { color: var(--text); }
 
 .pub .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 6px; font-style: italic; }
 
