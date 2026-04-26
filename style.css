@@ -17,6 +17,7 @@
   --link:       #3f6659;  /* muted sage green */
   --link-hover: #a8742a;  /* warm antique gold */
   --accent:     #3f6659;  /* sage for rules, badges, borders */
+  --news-text:  #4f5f5a;  /* subdued sage-ink for news copy */
 }
 
 * { box-sizing: border-box; }
@@ -130,12 +131,12 @@ ul li { margin-bottom: 6px; }
   grid-template-columns: 120px minmax(0, 1fr);
   column-gap: 18px;
   align-items: baseline;
-  padding: 9px 2px;
+  padding: 4px 2px;
   border-bottom: 1px dashed var(--rule);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   font-size: 0.84rem;
-  line-height: 1.5;
+  line-height: 1.32;
 }
 .news li:last-child { border-bottom: none; }
 .news .date {
@@ -148,7 +149,7 @@ ul li { margin-bottom: 6px; }
 }
 .news .news-text {
   min-width: 0;
-  color: var(--text-soft);
+  color: var(--news-text);
 }
 
 /* ---------- Experience / Education ---------- */
@@ -183,14 +184,11 @@ ul li { margin-bottom: 6px; }
 }
 .pub:last-child { border-bottom: none; }
 
-.pub-fig {
-  flex: 0 0 180px;
-  width: 180px;
-}
+.pub-fig { flex: 0 0 240px; }
 .pub-fig a {
   display: block;
-  width: 180px;
-  height: 180px;
+  width: 240px;
+  height: 160px;
   overflow: hidden;
   border: 1px solid var(--rule);
   border-radius: 6px;
@@ -273,11 +271,11 @@ footer {
   .pub { flex-direction: column; }
   .pub-fig {
     flex-basis: auto;
-    width: min(100%, 260px);
+    width: min(100%, 300px);
   }
   .pub-fig a {
-    width: min(100%, 260px);
-    height: min(80vw, 260px);
+    width: min(100%, 300px);
+    height: min(66.67vw, 200px);
   }
   .exp .when { flex-basis: 100%; }
 }
