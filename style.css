@@ -122,14 +122,16 @@ ul li { margin-bottom: 6px; }
 
 .news { list-style: none; padding-left: 0; }
 .news li {
-  padding: 6px 0;
+  padding: 6px 0 6px 118px;
+  text-indent: -118px;
   border-bottom: 1px dashed var(--rule);
 }
 .news li:last-child { border-bottom: none; }
 .news .date {
   display: inline-block;
   color: var(--muted);
-  min-width: 110px;
+  width: 110px;
+  margin-right: 8px;
   font-variant-numeric: tabular-nums;
   font-family: "Courier New", Courier, monospace;
   font-size: 0.92rem;
