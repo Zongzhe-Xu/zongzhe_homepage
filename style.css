@@ -4,19 +4,19 @@
    ============================================================ */
 
 :root {
-  /* Wooden palette */
-  --bg:         #faf6f0;  /* pale cream paper */
-  --bg-panel:   #f1e7d6;  /* lightly tinted card */
-  --bg-accent:  #e8d9bf;  /* sanded light oak */
-  --rule:       #d9c6a6;  /* soft wood grain */
+  /* Warm-neutral palette: mostly soft white, wood only on accents */
+  --bg:         #fbfaf7;  /* near-white with a hint of warmth */
+  --bg-panel:   #efe6d3;  /* parchment card (used sparingly) */
+  --bg-accent:  #e3d4b6;  /* sanded oak */
+  --rule:       #cdbb97;  /* wood grain */
 
-  --text:       #3a2b1a;  /* dark walnut ink */
-  --text-soft:  #5a4326;  /* medium brown */
-  --muted:      #8a6f4e;  /* warm taupe */
+  --text:       #241810;  /* dark walnut ink */
+  --text-soft:  #3d2c1c;  /* deep brown body */
+  --muted:      #79614a;  /* taupe for meta text */
 
-  --link:       #8b4a1f;  /* saddle brown */
-  --link-hover: #c77a2d;  /* caramel */
-  --accent:     #a9784b;  /* toasted wood */
+  --link:       #7a3d16;  /* deeper saddle brown */
+  --link-hover: #b8691d;  /* rich amber */
+  --accent:     #8c5a2e;  /* medium wood */
 }
 
 * { box-sizing: border-box; }
@@ -120,22 +120,24 @@ ul li { margin-bottom: 6px; }
 .interests { list-style: square; }
 .interests li::marker { color: var(--accent); }
 
-.news { list-style: none; padding-left: 0; }
+.news { list-style: none; padding-left: 0; margin-left: 0; }
 .news li {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 14px;
   padding: 6px 0;
   border-bottom: 1px dashed var(--rule);
 }
 .news li:last-child { border-bottom: none; }
 .news .date {
-  flex: 0 0 110px;
+  flex: 0 0 116px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   font-family: "Courier New", Courier, monospace;
   font-size: 0.92rem;
+  white-space: nowrap;
 }
+.news .news-text { flex: 1 1 auto; min-width: 0; }
 
 /* ---------- Experience / Education ---------- */
 .exp { list-style: none; padding-left: 0; }
