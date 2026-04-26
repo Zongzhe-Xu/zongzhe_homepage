@@ -1,0 +1,249 @@
+/* ============================================================
+   Zongzhe Xu - academic homepage
+   Palette: warm light-brown / wooden tones
+   ============================================================ */
+
+:root {
+  /* Wooden palette */
+  --bg:         #faf6f0;  /* pale cream paper */
+  --bg-panel:   #f1e7d6;  /* lightly tinted card */
+  --bg-accent:  #e8d9bf;  /* sanded light oak */
+  --rule:       #d9c6a6;  /* soft wood grain */
+
+  --text:       #3a2b1a;  /* dark walnut ink */
+  --text-soft:  #5a4326;  /* medium brown */
+  --muted:      #8a6f4e;  /* warm taupe */
+
+  --link:       #8b4a1f;  /* saddle brown */
+  --link-hover: #c77a2d;  /* caramel */
+  --accent:     #a9784b;  /* toasted wood */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino,
+               "Noto Serif", serif;
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 28px 64px;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+a:hover { color: var(--link-hover); }
+
+h1, h2, h3 {
+  color: var(--text);
+  font-family: "Iowan Old Style", Georgia, "Palatino Linotype", Palatino, serif;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 4px;
+  color: #2e1f0f;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--accent);
+  color: #3a2b1a;
+}
+
+p { margin: 0 0 12px; }
+
+em { color: var(--text-soft); }
+strong { color: #2e1f0f; }
+
+/* ---------- Profile header ---------- */
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 20px 22px;
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  box-shadow: 0 2px 0 var(--bg-accent);
+}
+
+.avatar { flex: 0 0 200px; }
+
+.avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  background: var(--bg-accent);
+  box-shadow: 0 3px 10px rgba(100, 60, 20, 0.15);
+}
+
+.profile-info {
+  flex: 1 1 400px;
+  min-width: 260px;
+}
+
+.profile-info .tagline {
+  color: var(--muted);
+  margin: 2px 0 6px;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.profile-info p { margin: 2px 0; }
+.profile-info .links { margin-top: 12px; }
+.profile-info .links a { font-weight: 600; }
+
+/* ---------- Lists ---------- */
+ul { padding-left: 22px; }
+ul li { margin-bottom: 6px; }
+
+.interests { list-style: square; }
+.interests li::marker { color: var(--accent); }
+
+.news { list-style: none; padding-left: 0; }
+.news li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.news li:last-child { border-bottom: none; }
+.news .date {
+  display: inline-block;
+  color: var(--muted);
+  min-width: 110px;
+  font-variant-numeric: tabular-nums;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.92rem;
+}
+
+/* ---------- Experience / Education ---------- */
+.exp { list-style: none; padding-left: 0; }
+.exp li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.exp li:last-child { border-bottom: none; }
+.exp .when {
+  flex: 0 0 190px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.92rem;
+}
+.exp .what { flex: 1 1 380px; }
+
+/* ---------- Publications ---------- */
+.note { color: var(--muted); margin-bottom: 16px; }
+.note .sub { font-size: 0.92em; }
+
+.pub {
+  display: flex;
+  gap: 22px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: flex-start;
+}
+.pub:last-child { border-bottom: none; }
+
+.pub-fig { flex: 0 0 210px; }
+.pub-fig img {
+  width: 210px;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  background: var(--bg-panel);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(100, 60, 20, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pub-fig a:hover img {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(100, 60, 20, 0.2);
+}
+
+.pub-info { flex: 1 1 auto; min-width: 0; }
+
+.pub .venue {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff8ea;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.pub .title {
+  font-weight: 700;
+  font-size: 1.08rem;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.pub .title a { color: #2e1f0f; }
+.pub .title a:hover { color: var(--link-hover); }
+
+.pub .authors { margin-bottom: 2px; color: var(--text-soft); }
+.pub .authors strong { color: #2e1f0f; }
+
+.pub .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 6px; font-style: italic; }
+
+.pub .pub-links a {
+  font-size: 0.9rem;
+  margin-right: 12px;
+  font-weight: 600;
+}
+
+.pub .desc {
+  margin-top: 8px;
+  color: var(--text-soft);
+  font-size: 0.97rem;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 52px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .container { padding: 28px 16px 48px; }
+  .profile { padding: 16px; gap: 20px; }
+  .avatar { flex-basis: 100%; display: flex; justify-content: center; }
+  .avatar img { width: 160px; height: 160px; }
+  .pub { flex-direction: column; }
+  .pub-fig { flex-basis: auto; }
+  .pub-fig img { width: 100%; max-height: 200px; }
+  .exp .when { flex-basis: 100%; }
+}
