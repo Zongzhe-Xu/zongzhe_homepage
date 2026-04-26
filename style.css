@@ -37,6 +37,7 @@ html, body {
   width: min(1180px, calc(100vw - 96px));
   margin: 0 auto;
   padding: 56px 0 76px;
+  transform: translateX(-24px);
 }
 
 a {
@@ -170,8 +171,9 @@ ul li { margin-bottom: 6px; }
   flex: 0 0 190px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.92rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
 }
 .exp .what { flex: 1 1 380px; }
 
@@ -271,6 +273,7 @@ footer {
   .container {
     width: calc(100vw - 36px);
     padding: 28px 0 48px;
+    transform: none;
   }
   .profile { padding: 16px; gap: 20px; }
   .avatar { flex-basis: 100%; display: flex; justify-content: center; }
