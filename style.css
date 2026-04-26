@@ -34,9 +34,9 @@ html, body {
 }
 
 .container {
-  max-width: 1180px;
+  width: min(1180px, calc(100vw - 96px));
   margin: 0 auto;
-  padding: 56px 48px 76px;
+  padding: 56px 0 76px;
 }
 
 a {
@@ -70,7 +70,7 @@ h2 {
 p { margin: 0 0 12px; }
 
 em { color: var(--text-soft); }
-strong { color: var(--text); }
+strong { color: #173d34; }
 
 /* ---------- Profile header ---------- */
 .profile {
@@ -268,7 +268,10 @@ footer {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
-  .container { padding: 28px 18px 48px; }
+  .container {
+    width: calc(100vw - 36px);
+    padding: 28px 0 48px;
+  }
   .profile { padding: 16px; gap: 20px; }
   .avatar { flex-basis: 100%; display: flex; justify-content: center; }
   .avatar img { width: 170px; height: 170px; }
