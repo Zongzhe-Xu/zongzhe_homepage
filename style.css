@@ -37,7 +37,7 @@ html, body {
   width: min(1180px, calc(100vw - 96px));
   margin: 0 auto;
   padding: 56px 0 76px;
-  transform: translateX(-24px);
+  transform: translateX(-40px);
 }
 
 a {
