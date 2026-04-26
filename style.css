@@ -152,7 +152,8 @@ ul li { margin-bottom: 6px; }
   color: var(--news-text);
 }
 .news .news-text em {
-  color: #2f5147;
+  color: #173d34;
+  font-weight: 700;
 }
 
 /* ---------- Experience / Education ---------- */
