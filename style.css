@@ -77,10 +77,11 @@ strong { color: #173d34; }
 .profile {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 48px;
   align-items: center;
+  justify-content: center;
   margin-bottom: 12px;
-  padding: 20px 22px;
+  padding: 24px 34px;
   background: var(--bg-panel);
   border: 1px solid var(--rule);
   border-radius: 8px;
@@ -100,7 +101,7 @@ strong { color: #173d34; }
 }
 
 .profile-info {
-  flex: 1 1 400px;
+  flex: 0 1 520px;
   min-width: 260px;
 }
 
@@ -168,12 +169,13 @@ ul li { margin-bottom: 6px; }
 }
 .exp li:last-child { border-bottom: none; }
 .exp .when {
-  flex: 0 0 190px;
+  flex: 0 0 245px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.86rem;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 .exp .what { flex: 1 1 380px; }
 
@@ -278,6 +280,7 @@ footer {
   .profile { padding: 16px; gap: 20px; }
   .avatar { flex-basis: 100%; display: flex; justify-content: center; }
   .avatar img { width: 170px; height: 170px; }
+  .profile-info { text-align: center; }
   .pub { flex-direction: column; }
   .pub-fig {
     flex-basis: auto;
