@@ -1,14 +1,14 @@
 # Zongzhe Xu — Personal Homepage
 
 A lightweight, static academic homepage (plain HTML + CSS + a little vanilla JS, no build step).
-Light/dark theme follows the system preference; the toggle in the nav overrides it.
+The background descends from beach to deep sea as you scroll; sections below the drop-off switch to light text.
 
 ## Structure
 
 ```
 zongzhe_homepage/
 ├── index.html      # Page content — edit here
-├── style.css       # "Sage & Linen" theme (light + dark)
+├── style.css       # "Shore to Deep" ocean theme
 ├── .nojekyll       # Tells GitHub Pages to serve files as-is
 ├── images/
 │   ├── profile.png
