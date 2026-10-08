@@ -1,8 +1,8 @@
 # Zongzhe Xu — Personal Homepage
 
 A lightweight, static academic homepage (plain HTML + CSS + a little vanilla JS, no build step).
-The background is a generative contour drawing: level lines of a slowly drifting noise field,
-redrawn each frame (see the script at the bottom of `index.html`). Reduced-motion users get a still frame.
+The background is a generative ink drawing: a sparse set of thin strokes following a slowly
+drifting flow field, leaving fading trails (see the script at the bottom of `index.html`). Reduced-motion users get a still frame.
 
 ## Structure
 
