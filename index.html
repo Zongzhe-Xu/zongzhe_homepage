@@ -346,7 +346,7 @@
       var ctx = canvas.getContext('2d', { alpha: false });
       var PAPER = '#f4f1ea';
       var INK = '52, 66, 86', ACCENT = '181, 86, 58';
-      var COUNT_DIV = 11000, MAX = 150, TRAIL = 560, BUCKETS = 7, ALPHA = 0.42;
+      var COUNT_DIV = 8500, MAX = 200, TRAIL = 700, BUCKETS = 7, ALPHA = 0.42;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var W, H, dpr, parts = [], t = Math.random() * 10, hidden = false;
 
@@ -367,8 +367,9 @@
       }
       function spawn(p) {
         p.x = Math.random() * W; p.y = Math.random() * H;
-        p.life = 900 + Math.random() * 1600;
-        p.bias = (Math.random() - 0.5) * 0.7;   // personal heading offset, so long strokes spread instead of bundling
+        p.life = 2400 + Math.random() * 4800;   // frames; roughly 40 to 120 s
+        p.dying = false;
+        p.bias = (Math.random() - 0.5) * 2.2;   // personal heading offset, so long strokes spread instead of bundling
         p.sp = 0.9 + Math.random() * 1.1;
         p.ink = Math.random() < 0.06 ? ACCENT : INK;
         p.w = 0.6 + Math.random() * 0.6;
@@ -392,11 +393,16 @@
         t += 0.00045;
         for (var i = 0; i < parts.length; i++) {
           var p = parts[i];
+          if (p.dying) {                       // tip has stopped; the trail erodes from its tail
+            p.n -= 1;
+            if (p.n <= 1) spawn(p);
+            continue;
+          }
           var a = angle(p.x, p.y, t) + p.bias;
           p.x += Math.cos(a) * p.sp; p.y += Math.sin(a) * p.sp;
           p.tx[p.head] = p.x; p.ty[p.head] = p.y;
           p.head = (p.head + 1) % TRAIL; if (p.n < TRAIL) p.n++;
-          if (--p.life < 0 || p.x < -5 || p.y < -5 || p.x > W + 5 || p.y > H + 5) spawn(p);
+          if (--p.life < 0 || p.x < -5 || p.y < -5 || p.x > W + 5 || p.y > H + 5) p.dying = true;
         }
       }
       function draw() {
