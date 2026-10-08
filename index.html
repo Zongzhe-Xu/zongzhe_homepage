@@ -16,58 +16,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===================== PAINTED COAST (backdrop) ===================== -->
+  <!-- ===================== PAINTED SEA (backdrop) ===================== -->
   <div class="coast" aria-hidden="true">
-    <div class="sea">
-      <span class="patch w1"></span>
-      <span class="patch w2"></span>
-      <span class="patch w3"></span>
-      <span class="patch w4"></span>
-      <span class="patch w5"></span>
-      <span class="patch w6"></span>
-      <span class="patch w7"></span>
-      <span class="patch w8"></span>
-      <span class="patch w9"></span>
-      <span class="patch w10"></span>
-      <span class="patch w11"></span>
-      <span class="patch w12"></span>
-      <span class="patch w13"></span>
-      <span class="patch w14"></span>
-      <span class="patch w15"></span>
-      <span class="patch w16"></span>
-      <span class="patch w17"></span>
-      <span class="patch w18"></span>
-      <span class="patch w19"></span>
-      <span class="patch w20"></span>
-      <span class="patch w21"></span>
-      <span class="patch w22"></span>
-      <span class="patch w23"></span>
-      <span class="patch w24"></span>
-      <span class="patch w25"></span>
-      <span class="patch w26"></span>
-      <span class="patch w27"></span>
-      <span class="patch w28"></span>
-    </div>
-    <div class="shore">
-      <div class="sand-fill"></div>
-      <svg class="edge foam" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 0 H1440 V22 C 1360 36, 1290 56, 1200 50 S 1040 24, 960 34 S 820 60, 720 52 S 560 24, 460 32 S 300 58, 200 52 S 60 26, 0 36 Z"/></svg>
-      <svg class="edge beach" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 0 H1440 V22 C 1360 36, 1290 56, 1200 50 S 1040 24, 960 34 S 820 60, 720 52 S 560 24, 460 32 S 300 58, 200 52 S 60 26, 0 36 Z"/></svg>
-      <div class="dunes">
-        <span class="patch s1"></span>
-        <span class="patch s2"></span>
-        <span class="patch s3"></span>
-        <span class="patch s4"></span>
-        <span class="patch s5"></span>
-        <span class="patch s6"></span>
-        <span class="patch s7"></span>
-      </div>
-    </div>
+    <div class="sea"></div>
+    <div class="sea sea-drift"></div>
+    <div class="deepen"></div>
+    <div class="shore"></div>
   </div>
 
   <a class="skip" href="#about">Skip to content</a>
 
   <!-- ===================== NAV ===================== -->
-  <nav class="nav" aria-label="Primary">
+  <nav class="nav" id="nav" aria-label="Primary">
     <div class="nav-inner">
       <a class="brand" href="#top">Zongzhe Xu</a>
       <div class="nav-links">
@@ -85,7 +45,6 @@
     <div class="container hero-inner">
       <img class="avatar" src="images/profile.png" alt="Portrait of Zongzhe Xu" width="220" height="220" />
       <div class="hero-text">
-        <p class="eyebrow">PhD Student &middot; Computer Science &middot; Amazon AI PhD Fellow</p>
         <h1>Zongzhe Xu</h1>
         <p class="lede">
           Building <span class="hl">foundation models</span> for physiological and wearable
@@ -119,8 +78,7 @@
           <a href="https://www.ucla.edu/" target="_blank" rel="noopener">UCLA</a>,
           working with Prof.
           <a href="https://people.csail.mit.edu/yuzhe/" target="_blank" rel="noopener">Yuzhe Yang</a>
-          in the Health Intelligence Lab (HAIL). My research is supported by an
-          <strong>Amazon AI PhD Fellowship</strong>.
+          in the Health Intelligence Lab (HAIL).
           Before UCLA, I completed my M.S. in Machine Learning at
           <a href="https://www.ml.cmu.edu/" target="_blank" rel="noopener">Carnegie Mellon University</a>,
           where I worked with Prof.
@@ -141,6 +99,10 @@
           as a Data Scientist Intern contributing to
           <a href="https://github.com/DataDog/toto" target="_blank" rel="noopener">TOTO</a>,
           a time-series foundation model for observability data.
+        </p>
+        <p>
+          I am glad to announce that I have been selected as an
+          <strong>Amazon AI PhD Fellow</strong> for 2026.
         </p>
       </div>
     </section>
@@ -180,14 +142,15 @@
         <li><span class="date">Jul. 2026</span><span class="news-text"><em>Inertia-1</em> is on <a href="https://arxiv.org/abs/2607.06617" target="_blank" rel="noopener">arXiv</a>, with <a href="https://github.com/yang-ai-lab/Inertia-1" target="_blank" rel="noopener">code</a> and a <a href="https://yang-ai-lab.github.io/Inertia-1/" target="_blank" rel="noopener">project page</a>.</span></li>
         <li><span class="date">Apr. 2026</span><span class="news-text"><em>SleepLM</em> is accepted at ICML 2026 as a <em>Spotlight</em>! <em>OSF</em> is also accepted at ICML 2026.</span></li>
         <li><span class="date">Apr. 2026</span><span class="news-text">Homepage is up! Always looking for collaborations in AI for health.</span></li>
-        <li><span class="date">Feb. 2026</span><span class="news-text"><em>SleepLM: Natural-Language Intelligence for Human Sleep</em> and <em>OSF: On Pre-training and Scaling of Sleep Foundation Models</em> are on arXiv!</span></li>
-        <li><span class="date">Sep. 2025</span><span class="news-text">Our work on time-series foundation models, <em>This Time is Different: An Observability Perspective on Time Series Foundation Models</em>, is accepted at NeurIPS 2025!</span></li>
-        <li><span class="date">Aug. 2025</span><span class="news-text">Started my PhD at UCLA in the HAIL Lab with Prof. Yuzhe Yang!</span></li>
-        <li><span class="date">Jan. 2025</span><span class="news-text">Joined Datadog as a Data Scientist Intern working on TOTO.</span></li>
-        <li><span class="date">Jan. 2025</span><span class="news-text"><em>Specialized Foundation Models Struggle to Beat Supervised Baselines</em> is accepted at ICLR 2025!</span></li>
-        <li><span class="date">Jan. 2025</span><span class="news-text"><em>V2X-DG: Domain Generalization for Vehicle-to-Everything Cooperative Perception</em> is accepted at ICRA 2025!</span></li>
-        <li><span class="date">Dec. 2024</span><span class="news-text">Graduated from CMU with an M.S. in Machine Learning.</span></li>
+        <li class="news-old"><span class="date">Feb. 2026</span><span class="news-text"><em>SleepLM: Natural-Language Intelligence for Human Sleep</em> and <em>OSF: On Pre-training and Scaling of Sleep Foundation Models</em> are on arXiv!</span></li>
+        <li class="news-old"><span class="date">Sep. 2025</span><span class="news-text">Our work on time-series foundation models, <em>This Time is Different: An Observability Perspective on Time Series Foundation Models</em>, is accepted at NeurIPS 2025!</span></li>
+        <li class="news-old"><span class="date">Aug. 2025</span><span class="news-text">Started my PhD at UCLA in the HAIL Lab with Prof. Yuzhe Yang!</span></li>
+        <li class="news-old"><span class="date">Jan. 2025</span><span class="news-text">Joined Datadog as a Data Scientist Intern working on TOTO.</span></li>
+        <li class="news-old"><span class="date">Jan. 2025</span><span class="news-text"><em>Specialized Foundation Models Struggle to Beat Supervised Baselines</em> is accepted at ICLR 2025!</span></li>
+        <li class="news-old"><span class="date">Jan. 2025</span><span class="news-text"><em>V2X-DG: Domain Generalization for Vehicle-to-Everything Cooperative Perception</em> is accepted at ICRA 2025!</span></li>
+        <li class="news-old"><span class="date">Dec. 2024</span><span class="news-text">Graduated from CMU with an M.S. in Machine Learning.</span></li>
       </ul>
+      <button class="more-btn" id="news-more" type="button" aria-expanded="false">Show older news</button>
     </section>
 
     <!-- ===================== PUBLICATIONS ===================== -->
@@ -378,20 +341,40 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    // --- Shoreline follows the hero ---------------------------------------
+    // --- Shoreline follows the hero; nav darkens once you are in the water.
     (function () {
       var hero = document.getElementById('top');
       var shore = document.querySelector('.shore');
-      var sea = document.querySelector('.sea');
+      var nav = document.getElementById('nav');
+      var line = 0;
       function fit() {
-        var hh = hero.getBoundingClientRect().bottom + window.scrollY + 52;
-        shore.style.height = hh + 'px';
-        sea.style.top = (hh - 40) + 'px';
+        line = hero.offsetTop + hero.offsetHeight;
+        shore.style.height = line + 'px';
+        onScroll();
       }
+      var ticking = false;
+      function onScroll() {
+        nav.classList.toggle('deep', window.scrollY + 30 > line);
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+      }, { passive: true });
       window.addEventListener('resize', fit);
       window.addEventListener('load', fit);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
       fit();
+    })();
+
+    // --- Older news toggle --------------------------------------------------
+    (function () {
+      var btn = document.getElementById('news-more');
+      var list = btn.previousElementSibling;
+      btn.addEventListener('click', function () {
+        var open = list.classList.toggle('show-all');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Show fewer' : 'Show older news';
+      });
     })();
 
     // --- Scroll reveal ----------------------------------------------------
