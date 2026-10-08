@@ -370,6 +370,7 @@
         p.x = Math.random() * W; p.y = Math.random() * H;
         p.life = 5000 + Math.random() * 5000;   // safety cap only: tips normally draw until they leave the page, then erode from the tail
         p.dying = false;
+        p.bias = (Math.random() - 0.5) * 1.2;   // small personal heading offset, spreads strokes across the field's channels
         p.sp = 0.8 + Math.random() * 1.0;
         p.ink = Math.random() < 0.06 ? ACCENT : INK;
         p.w = 0.6 + Math.random() * 0.6;  // unused; a single line width keeps the batched drawing fast
@@ -398,7 +399,7 @@
             if (p.n <= 1) spawn(p);
             continue;
           }
-          var a = angle(p.x, p.y, t);
+          var a = angle(p.x, p.y, t) + p.bias;
           p.x += Math.cos(a) * p.sp; p.y += Math.sin(a) * p.sp;
           p.tx[p.head] = p.x; p.ty[p.head] = p.y;
           p.head = (p.head + 1) % TRAIL; if (p.n < TRAIL) p.n++;
