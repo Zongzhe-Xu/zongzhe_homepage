@@ -1,23 +1,17 @@
 # Zongzhe Xu — Personal Homepage
 
 A lightweight, static academic homepage (plain HTML + CSS + a little vanilla JS, no build step).
-The background is a procedurally painted watercolour of a coastline seen from above (`tools/paint_coast.py`):
-sand and a frothy shoreline under the hero, shallows below, deepening to navy where the text turns white.
-
-```bash
-python3 tools/paint_coast.py /tmp/coast   # writes sea.jpg and sand.png; convert to WebP into images/
-```
+The background is a generative ink drawing: a canvas of thin strokes following a slowly
+drifting flow field (see the script at the bottom of `index.html`). Reduced-motion users get a still frame.
 
 ## Structure
 
 ```
 zongzhe_homepage/
 ├── index.html      # Page content — edit here
-├── style.css       # "Painted Coast" theme
+├── style.css       # "Ink on paper" theme
 ├── .nojekyll       # Tells GitHub Pages to serve files as-is
 ├── images/
-│   ├── sea.webp    # painted sea backdrop (generated)
-│   ├── sand.webp   # painted beach + shoreline (generated)
 │   ├── profile.png
 │   ├── inertia1.png
 │   ├── sleeplm.png
@@ -25,8 +19,6 @@ zongzhe_homepage/
 │   └── sfm.png
 ├── cv/
 │   └── Zongzhe_Xu_CV.pdf
-├── tools/
-│   └── paint_coast.py  # regenerates sea.jpg + sand.png (needs numpy, Pillow)
 └── README.md
 ```
 

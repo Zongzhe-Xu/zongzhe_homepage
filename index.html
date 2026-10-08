@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zongzhe Xu | UCLA</title>
   <meta name="description" content="Zongzhe Xu is a PhD student in Computer Science at UCLA, building foundation models for physiological and wearable health data." />
-  <meta name="theme-color" content="#f2e8d3" />
+  <meta name="theme-color" content="#f4f1ea" />
   <meta property="og:title" content="Zongzhe Xu | UCLA" />
   <meta property="og:description" content="PhD student at UCLA working on foundation models for physiological and wearable health data." />
   <meta property="og:image" content="images/profile.png" />
@@ -16,18 +16,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===================== PAINTED SEA (backdrop) ===================== -->
-  <div class="coast" aria-hidden="true">
-    <div class="sea"></div>
-    <div class="sea sea-drift"></div>
-    <div class="deepen"></div>
-    <div class="shore"></div>
-  </div>
+  <!-- ===================== BACKDROP: ink flow field ===================== -->
+  <canvas id="field" aria-hidden="true"></canvas>
 
   <a class="skip" href="#about">Skip to content</a>
 
   <!-- ===================== NAV ===================== -->
-  <nav class="nav" id="nav" aria-label="Primary">
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a class="brand" href="#top">Zongzhe Xu</a>
       <div class="nav-links">
@@ -341,29 +336,71 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    // --- Shoreline follows the hero; nav darkens once you are in the water.
+    // --- Ink flow field --------------------------------------------------
+    // Thin strokes follow a slowly drifting noise field and leave fading
+    // trails on the paper. Reduced-motion users get a single still drawing.
     (function () {
-      var hero = document.getElementById('top');
-      var shore = document.querySelector('.shore');
-      var nav = document.getElementById('nav');
-      var line = 0;
-      function fit() {
-        line = hero.offsetTop + hero.offsetHeight;
-        shore.style.height = line + 'px';
-        onScroll();
+      var canvas = document.getElementById('field');
+      var ctx = canvas.getContext('2d', { alpha: false });
+      var PAPER = '#f4f1ea';
+      var INK = 'rgba(52, 66, 86, 0.13)', ACCENT = 'rgba(181, 86, 58, 0.14)';
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var W, H, dpr, parts = [], t = 0, raf = null, hidden = false;
+
+      // 2-D value noise with a smooth hash; cheap and good enough for a field.
+      function hash(ix, iy) {
+        var n = ix * 374761393 + iy * 668265263;
+        n = (n ^ (n >>> 13)) * 1274126177;
+        return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
       }
-      var ticking = false;
-      function onScroll() {
-        nav.classList.toggle('deep', window.scrollY + 30 > line);
-        ticking = false;
+      function noise(x, y) {
+        var ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy;
+        var ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy);
+        var a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
+        return (a + (b - a) * ux) * (1 - uy) + (c + (d - c) * ux) * uy;
       }
-      window.addEventListener('scroll', function () {
-        if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-      }, { passive: true });
-      window.addEventListener('resize', fit);
-      window.addEventListener('load', fit);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-      fit();
+      function angle(x, y, tt) {
+        var n = noise(x * 0.0013 + tt, y * 0.0013) * 1.6 + noise(x * 0.005 - tt * 0.5, y * 0.005 + tt) * 0.3;
+        return n * Math.PI * 2.4;
+      }
+      function spawn(p) {
+        p.x = Math.random() * W; p.y = Math.random() * H;
+        p.life = 260 + Math.random() * 520;
+        p.sp = 0.8 + Math.random() * 1.0;
+        p.ink = Math.random() < 0.06 ? ACCENT : INK;
+        p.w = 0.6 + Math.random() * 0.6;
+        return p;
+      }
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
+        var n = Math.min(420, Math.floor(W * H / 5200));
+        parts = []; for (var i = 0; i < n; i++) parts.push(spawn({}));
+        if (reduce) { for (var k = 0; k < 520; k++) step(false); }
+      }
+      function step(fade) {
+        if (fade) { ctx.fillStyle = 'rgba(244, 241, 234, 0.022)'; ctx.fillRect(0, 0, W, H); }
+        t += 0.00045;
+        ctx.lineCap = 'round';
+        for (var i = 0; i < parts.length; i++) {
+          var p = parts[i];
+          var a = angle(p.x, p.y, t);
+          var nx = p.x + Math.cos(a) * p.sp, ny = p.y + Math.sin(a) * p.sp;
+          ctx.strokeStyle = p.ink; ctx.lineWidth = p.w;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
+          p.x = nx; p.y = ny;
+          if (--p.life < 0 || nx < -5 || ny < -5 || nx > W + 5 || ny > H + 5) spawn(p);
+        }
+      }
+      function loop() { if (!hidden) step(true); raf = requestAnimationFrame(loop); }
+      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 150); });
+      document.addEventListener('visibilitychange', function () { hidden = document.hidden; });
+      resize();
+      if (!reduce) loop();
     })();
 
     // --- Older news toggle --------------------------------------------------
