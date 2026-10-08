@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zongzhe Xu | UCLA</title>
   <meta name="description" content="Zongzhe Xu is a PhD student in Computer Science at UCLA, building foundation models for physiological and wearable health data." />
-  <meta name="theme-color" content="#efe3c6" />
+  <meta name="theme-color" content="#f2e8d3" />
   <meta property="og:title" content="Zongzhe Xu | UCLA" />
   <meta property="og:description" content="PhD student at UCLA working on foundation models for physiological and wearable health data." />
   <meta property="og:image" content="images/profile.png" />
@@ -16,21 +16,27 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===================== OCEAN BACKDROP ===================== -->
-  <div class="ocean" aria-hidden="true">
-    <div class="sun"></div>
-    <div class="caustics"></div>
-    <div class="rays"></div>
-    <div class="bubbles">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
+  <!-- ===================== PAINTED COAST (backdrop) ===================== -->
+  <div class="coast" aria-hidden="true">
+    <span class="patch p1"></span>
+    <span class="patch p2"></span>
+    <span class="patch p3"></span>
+    <span class="patch p4"></span>
+    <span class="patch p5"></span>
+    <span class="patch p6"></span>
+    <span class="patch p7"></span>
+    <span class="patch p8"></span>
+    <span class="patch p9"></span>
+    <span class="patch p10"></span>
+    <span class="patch p11"></span>
+    <span class="patch p12"></span>
+    <div class="haze"></div>
   </div>
-  <div class="depth" aria-hidden="true"><span id="depth-val">0</span> m</div>
 
   <a class="skip" href="#about">Skip to content</a>
 
   <!-- ===================== NAV ===================== -->
-  <nav class="nav" id="nav" aria-label="Primary">
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a class="brand" href="#top">Zongzhe Xu</a>
       <div class="nav-links">
@@ -43,12 +49,12 @@
     </div>
   </nav>
 
-  <!-- ===================== HERO (the beach) ===================== -->
+  <!-- ===================== HERO ===================== -->
   <header class="hero" id="top">
     <div class="container hero-inner">
       <img class="avatar" src="images/profile.png" alt="Portrait of Zongzhe Xu" width="220" height="220" />
       <div class="hero-text">
-        <p class="eyebrow">PhD Student &middot; Computer Science</p>
+        <p class="eyebrow">PhD Student &middot; Computer Science &middot; Amazon AI PhD Fellow</p>
         <h1>Zongzhe Xu</h1>
         <p class="lede">
           Building <span class="hl">foundation models</span> for physiological and wearable
@@ -69,11 +75,6 @@
       </div>
     </div>
 
-    <!-- Shoreline: the water's edge -->
-    <div class="shore" aria-hidden="true">
-      <svg class="wave wave-back" viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 40 C 90 15, 270 65, 360 40 S 630 15, 720 40 S 990 65, 1080 40 S 1350 15, 1440 40 V 80 H 0 Z"/></svg>
-      <svg class="wave wave-front" viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 48 C 120 24, 240 72, 360 48 S 600 24, 720 48 S 960 72, 1080 48 S 1320 24, 1440 48 V 80 H 0 Z"/></svg>
-    </div>
   </header>
 
   <main class="container">
@@ -334,73 +335,17 @@
     </section>
   </main>
 
-  <!-- ===================== FOOTER (the sea floor) ===================== -->
+  <!-- ===================== FOOTER ===================== -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Zongzhe Xu &middot; Last updated October 2026.</p>
-      <a class="to-top" href="#top">Surface &uarr;</a>
+      <a class="to-top" href="#top">Back to top &uarr;</a>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- Ocean depth -------------------------------------------------------
-    // The water gets deep in the gap just above the first section whose top
-    // lies past DEEP_FRACTION of the page. Sections below that line use light
-    // ink; everything above uses dark ink.
-    (function () {
-      var DEEP_FRACTION = 0.42;
-      var root = document.documentElement;
-      var ocean = document.querySelector('.ocean');
-      var nav = document.getElementById('nav');
-      var depthEl = document.getElementById('depth-val');
-      var blocks = Array.prototype.slice.call(document.querySelectorAll('main > section, footer'));
-      var deepStart = 0, deepEnd = 0;
-
-      function layout() {
-        var docH = root.scrollHeight;
-        var first = null;
-        for (var i = 0; i < blocks.length; i++) {
-          var top = blocks[i].getBoundingClientRect().top + window.scrollY;
-          if (top > docH * DEEP_FRACTION) { first = blocks[i]; break; }
-        }
-        if (!first) first = blocks[blocks.length - 1];
-        var firstTop = first.getBoundingClientRect().top + window.scrollY;
-        var prev = blocks[blocks.indexOf(first) - 1];
-        var prevBottom = prev ? prev.getBoundingClientRect().bottom + window.scrollY : firstTop - 80;
-        deepEnd = firstTop + 16;
-        deepStart = Math.min(prevBottom - 16, deepEnd - 60);
-        ocean.style.setProperty('--deep-start', deepStart + 'px');
-        ocean.style.setProperty('--deep-end', deepEnd + 'px');
-        ocean.style.height = docH + 'px';
-        blocks.forEach(function (b) {
-          var t = b.getBoundingClientRect().top + window.scrollY;
-          b.classList.toggle('deep', t >= firstTop - 1);
-        });
-        scroll();
-      }
-
-      var ticking = false;
-      function scroll() {
-        var max = Math.max(1, root.scrollHeight - window.innerHeight);
-        var t = Math.min(1, window.scrollY / max);
-        root.style.setProperty('--depth', t.toFixed(3));
-        var mid = window.scrollY + window.innerHeight * 0.5;
-        var below = Math.min(1, Math.max(0, (mid - deepStart) / Math.max(1, deepEnd - deepStart)));
-        root.style.setProperty('--below', below.toFixed(3));
-        nav.classList.toggle('deep', window.scrollY + 40 > (deepStart + deepEnd) / 2);
-        depthEl.textContent = Math.round(t * 200);
-        ticking = false;
-      }
-      window.addEventListener('scroll', function () {
-        if (!ticking) { ticking = true; requestAnimationFrame(scroll); }
-      }, { passive: true });
-      window.addEventListener('resize', layout);
-      window.addEventListener('load', layout);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-      layout();
-    })();
 
     // --- Scroll reveal ----------------------------------------------------
     (function () {

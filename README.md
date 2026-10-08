@@ -1,14 +1,14 @@
 # Zongzhe Xu — Personal Homepage
 
 A lightweight, static academic homepage (plain HTML + CSS + a little vanilla JS, no build step).
-The background descends from beach to deep sea as you scroll; sections below the drop-off switch to light text.
+The background is a dreamy, out-of-focus aerial coastline: sand at the top, shallows, then hazy deep water, as slowly drifting colour patches.
 
 ## Structure
 
 ```
 zongzhe_homepage/
 ├── index.html      # Page content — edit here
-├── style.css       # "Shore to Deep" ocean theme
+├── style.css       # "Painted Coast" theme (blurred aerial coastline)
 ├── .nojekyll       # Tells GitHub Pages to serve files as-is
 ├── images/
 │   ├── profile.png

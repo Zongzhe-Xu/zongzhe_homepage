@@ -1,57 +1,33 @@
 /* ============================================================
    Zongzhe Xu - academic homepage
-   Theme: "Shore to Deep" — the page starts on the beach and
-   descends into the sea as you scroll. Sections past the
-   thermocline (set by JS via .deep) switch to light ink.
+   Theme: "Painted Coast" — a dreamy, out-of-focus aerial view
+   of a coastline. Sand at the top, shallows, then hazy deep
+   water, all as slowly drifting blurred colour patches.
    ============================================================ */
 
 :root {
-  /* ink for shallow water / sand */
   --ink:        #0f2a3a;
   --ink-soft:   #23414f;
-  --muted:      #4f6a78;
+  --muted:      #3f5a6a;
   --link:       #0b6a8c;
   --hover:      #c9643f;
   --accent:     #c9643f;
-  --rule:       rgba(15, 42, 58, 0.16);
+  --rule:       rgba(15, 42, 58, 0.20);
   --rule-strong:rgba(15, 42, 58, 0.34);
   --fig-border: rgba(255, 255, 255, 0.75);
-
-  /* sea palette */
-  --sand-1:     #f7eed7;
-  --sand-2:     #ecdcb4;
-  --foam:       #e4f7f6;
-  --shallow:    #8fdbe2;
-  --lagoon:     #4cc0d4;
-  --open:       #2398bf;
-  --deep:       #0b3f6e;
-  --abyss:      #041a33;
+  --deep:       #5f88b8;
 
   --serif: "Newsreader", "Iowan Old Style", Georgia, "Palatino Linotype", serif;
   --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono:  "JetBrains Mono", "SFMono-Regular", Consolas, Menlo, monospace;
 
   --container: 1040px;
-  --depth: 0;   /* 0 = top of page, 1 = bottom (set by JS) */
-  --below: 0;   /* 0 = above the thermocline, 1 = below (set by JS) */
-}
-
-.deep {
-  --ink:        #eef6f9;
-  --ink-soft:   #cfe2ec;
-  --muted:      #93b3c4;
-  --link:       #8fdbea;
-  --hover:      #ffbf9a;
-  --accent:     #ffbf9a;
-  --rule:       rgba(238, 246, 249, 0.16);
-  --rule-strong:rgba(238, 246, 249, 0.38);
-  --fig-border: rgba(255, 255, 255, 0.28);
 }
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; background: var(--abyss); overflow-x: hidden; }
+html { scroll-behavior: smooth; background: var(--deep); overflow-x: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -115,18 +91,21 @@ strong { color: var(--ink); font-weight: 600; }
 .skip:focus { left: 8px; }
 
 main { position: relative; }
-section { padding: 56px 0 8px; scroll-margin-top: 72px; transition: color 0.4s ease; }
+section { padding: 56px 0 8px; scroll-margin-top: 72px; }
 section:first-of-type { padding-top: 64px; }
 
 /* ---------- Reveal on scroll ---------- */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease, color 0.4s ease; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 
 /* ============================================================
-   OCEAN BACKDROP
+   PAINTED COAST — an aerial view of a coastline, out of focus.
+   Big blurred colour patches over a slow vertical gradient:
+   sand at the top, shallows, then hazy deep water. The patches
+   drift very slowly; that is the only motion on the page.
    ============================================================ */
-.ocean {
+.coast {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
@@ -134,114 +113,57 @@ section:first-of-type { padding-top: 64px; }
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  --deep-start: 60%;
-  --deep-end: 66%;
   background: linear-gradient(180deg,
-    var(--shallow) 0px,
-    var(--lagoon) 640px,
-    #35abc9 calc(var(--deep-start) - 200px),
-    #2d9dc0 var(--deep-start),
-    var(--deep) var(--deep-end),
-    #06294f calc(var(--deep-end) + 30%),
-    var(--abyss) 100%);
+    #f3e9d1 0px,
+    #ecdfc0 360px,
+    #cfe7df 620px,
+    #a9dbdf 22%,
+    #8cc7d8 40%,
+    #74add0 58%,
+    #6697c5 76%,
+    #5f88b8 100%);
 }
-
-/* sun glare in the shallows, right under the beach */
-.sun {
+.patch {
   position: absolute;
-  top: 300px; right: -10%;
-  width: 70vw; height: 520px;
-  background: radial-gradient(ellipse at 70% 10%, rgba(255, 250, 225, 0.55), rgba(255, 250, 225, 0) 60%);
-  filter: blur(10px);
-}
-
-/* caustic shimmer: visible in the shallows, fades out past the thermocline */
-.caustics {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: calc(0.45 * min(1, var(--depth) * 6) * (1 - var(--below)));
-  background:
-    radial-gradient(ellipse 140px 90px at 20% 30%, rgba(255,255,255,0.35), transparent 70%),
-    radial-gradient(ellipse 180px 110px at 70% 60%, rgba(255,255,255,0.28), transparent 70%),
-    radial-gradient(ellipse 120px 80px at 45% 80%, rgba(255,255,255,0.30), transparent 70%),
-    radial-gradient(ellipse 160px 100px at 85% 20%, rgba(255,255,255,0.25), transparent 70%);
-  background-size: 900px 700px, 1100px 800px, 800px 600px, 1000px 900px;
-  animation: caustic-a 26s ease-in-out infinite alternate;
-  mix-blend-mode: soft-light;
-}
-@keyframes caustic-a {
-  0%   { background-position: 0 0, 0 0, 0 0, 0 0; }
-  100% { background-position: 260px 120px, -220px 160px, 180px -140px, -160px -120px; }
-}
-
-/* god rays: long diagonal streaks that only show in deep water */
-.rays {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: calc(0.6 * var(--below));
-}
-.rays::before {
-  content: "";
-  position: absolute;
-  top: -20vh; left: -10vw;
-  width: 140vw; height: 140vh;
-  background: repeating-linear-gradient(104deg,
-    transparent 0 90px,
-    rgba(180, 225, 255, 0.07) 90px 130px,
-    transparent 130px 260px);
-  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, transparent 95%);
-  mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, transparent 95%);
-  animation: rays-sway 18s ease-in-out infinite alternate;
-}
-@keyframes rays-sway { from { transform: translateX(0); } to { transform: translateX(-120px); } }
-
-/* bubbles rising in the deep */
-.bubbles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: var(--below);
-}
-.bubbles span {
-  position: absolute;
-  bottom: -60px;
-  width: 14px; height: 14px;
+  display: block;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.45), rgba(255,255,255,0.05) 60%);
-  animation: rise linear infinite;
+  filter: blur(70px);
+  will-change: transform;
+  animation: drift 40s ease-in-out infinite alternate;
 }
-.bubbles span:nth-child(1)  { left: 8%;  width: 10px; height: 10px; animation-duration: 14s; animation-delay: -2s; }
-.bubbles span:nth-child(2)  { left: 17%; width: 18px; height: 18px; animation-duration: 20s; animation-delay: -9s; }
-.bubbles span:nth-child(3)  { left: 27%; width: 8px;  height: 8px;  animation-duration: 12s; animation-delay: -5s; }
-.bubbles span:nth-child(4)  { left: 38%; width: 14px; height: 14px; animation-duration: 17s; animation-delay: -12s; }
-.bubbles span:nth-child(5)  { left: 51%; width: 11px; height: 11px; animation-duration: 15s; animation-delay: -1s; }
-.bubbles span:nth-child(6)  { left: 62%; width: 20px; height: 20px; animation-duration: 23s; animation-delay: -15s; }
-.bubbles span:nth-child(7)  { left: 71%; width: 9px;  height: 9px;  animation-duration: 13s; animation-delay: -7s; }
-.bubbles span:nth-child(8)  { left: 80%; width: 15px; height: 15px; animation-duration: 18s; animation-delay: -3s; }
-.bubbles span:nth-child(9)  { left: 89%; width: 12px; height: 12px; animation-duration: 16s; animation-delay: -11s; }
-.bubbles span:nth-child(10) { left: 95%; width: 7px;  height: 7px;  animation-duration: 11s; animation-delay: -6s; }
-@keyframes rise {
-  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
-  10%  { opacity: 1; }
-  50%  { transform: translate3d(14px, -50vh, 0); }
-  100% { transform: translate3d(-10px, -110vh, 0); opacity: 0; }
+/* sand */
+.p1  { top: -3%;  left: -12%; width: 70%; height: 14%; background: #efd9ad; animation-duration: 46s; }
+.p2  { top: 1%;   left: 48%;  width: 62%; height: 11%; background: #f8f0dc; animation-duration: 52s; animation-delay: -20s; }
+/* foam and the shallows */
+.p3  { top: 7%;   left: 15%;  width: 85%; height: 7%;  background: rgba(255, 255, 255, 0.95); animation-duration: 38s; animation-delay: -9s; }
+.p4  { top: 9%;   left: -8%;  width: 60%; height: 15%; background: #b3e6e1; animation-duration: 44s; animation-delay: -30s; }
+.p5  { top: 13%;  left: 44%;  width: 66%; height: 17%; background: #86d4db; animation-duration: 58s; animation-delay: -14s; }
+.p6  { top: 26%;  left: -18%; width: 58%; height: 20%; background: #67bfd3; animation-duration: 49s; animation-delay: -41s; }
+/* open water */
+.p7  { top: 36%;  left: 38%;  width: 72%; height: 22%; background: #5ea6d0; animation-duration: 61s; animation-delay: -5s; }
+.p8  { top: 44%;  left: 6%;   width: 46%; height: 12%; background: rgba(255, 255, 255, 0.5); animation-duration: 55s; animation-delay: -27s; }
+.p9  { top: 54%;  left: -12%; width: 62%; height: 24%; background: #4f8fc6; animation-duration: 47s; animation-delay: -18s; }
+/* deep water, kept hazy so dark ink stays readable */
+.p10 { top: 66%;  left: 34%;  width: 78%; height: 26%; background: #4a80ba; animation-duration: 63s; animation-delay: -36s; }
+.p11 { top: 80%;  left: -6%;  width: 70%; height: 22%; background: #4574ae; animation-duration: 51s; animation-delay: -11s; }
+.p12 { top: 88%;  left: 50%;  width: 60%; height: 18%; background: #5b8fc0; animation-duration: 57s; animation-delay: -45s; }
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(3vw, -1.5vw, 0) scale(1.05); }
+  100% { transform: translate3d(-2vw, 2vw, 0) scale(0.97); }
 }
-
-/* depth meter */
-.depth {
-  position: fixed;
-  right: 18px; bottom: 16px;
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 6px rgba(4, 26, 51, 0.6);
-  opacity: calc(min(1, var(--depth) * 8));
-  pointer-events: none;
+/* atmospheric haze: lifts the deep water a little, like looking down through air */
+.haze {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.10) 55%,
+    rgba(255, 255, 255, 0.22) 100%);
+}
+@media (max-width: 720px) {
+  .patch { filter: blur(48px); }
+  .p2, .p8, .p12 { display: none; }
 }
 
 /* ============================================================
@@ -251,12 +173,10 @@ section:first-of-type { padding-top: 64px; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(247, 238, 215, 0.55);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
-  backdrop-filter: saturate(140%) blur(10px);
-  transition: background 0.4s ease;
+  background: rgba(255, 252, 245, 0.42);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  backdrop-filter: saturate(140%) blur(12px);
 }
-.nav.deep { background: rgba(4, 26, 51, 0.45); }
 .nav-inner { width: min(var(--container), calc(100% - 48px)); margin: 0 auto; height: 54px; display: flex; align-items: center; gap: 18px; }
 .brand { color: var(--ink); font-weight: 600; font-size: 1.05rem; margin-right: auto; }
 .nav-links { display: flex; gap: 22px; }
@@ -264,19 +184,9 @@ section:first-of-type { padding-top: 64px; }
 .nav-links a:hover, .nav-links a.active { color: var(--ink); }
 
 /* ============================================================
-   HERO — the beach
+   HERO
    ============================================================ */
-.hero {
-  position: relative;
-  padding: 56px 0 92px;
-  background:
-    radial-gradient(60vw 320px at 85% 0%, rgba(255, 248, 220, 0.9), rgba(255, 248, 220, 0) 70%),
-    radial-gradient(1.5px 1.5px at 12% 70%, rgba(120, 95, 50, 0.18) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 62% 40%, rgba(120, 95, 50, 0.14) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 88% 82%, rgba(120, 95, 50, 0.16) 50%, transparent 51%),
-    linear-gradient(180deg, var(--sand-1), var(--sand-2));
-  background-size: auto, 97px 83px, 131px 109px, 113px 127px, auto;
-}
+.hero { position: relative; padding: 64px 0 48px; }
 .hero-inner { display: flex; align-items: center; gap: 48px; }
 .avatar {
   flex: 0 0 auto;
@@ -285,7 +195,7 @@ section:first-of-type { padding-top: 64px; }
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 30px rgba(80, 60, 20, 0.18);
+  box-shadow: 0 10px 30px rgba(40, 60, 90, 0.18);
 }
 .hero-text { flex: 1 1 auto; min-width: 0; }
 .eyebrow {
@@ -297,34 +207,13 @@ section:first-of-type { padding-top: 64px; }
 }
 h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 12px; }
 .lede { font-size: clamp(1.08rem, 1rem + 0.5vw, 1.32rem); color: var(--ink-soft); max-width: 36ch; margin: 0 0 20px; line-height: 1.5; }
-.lede .hl { font-style: italic; background: linear-gradient(transparent 60%, rgba(76, 192, 212, 0.35) 60%); padding: 0 2px; }
+.lede .hl { font-style: italic; background: linear-gradient(transparent 60%, rgba(255, 255, 255, 0.55) 60%); padding: 0 2px; }
 .lede a { border-bottom: 1px solid var(--rule-strong); }
 .lede a:hover { border-bottom-color: var(--hover); }
 .hero-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; font-family: var(--sans); font-size: 0.9rem; font-weight: 500; }
 .hero-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
 .hero-links a:hover { color: var(--hover); }
 .hero-links svg { width: 16px; height: 16px; }
-
-/* shoreline: two layers of water lapping over the sand */
-.shore {
-  position: absolute;
-  left: 0; right: 0;
-  bottom: -40px;
-  height: 80px;
-  overflow: hidden;
-  pointer-events: none;
-}
-.wave {
-  position: absolute;
-  top: 0; left: 0;
-  width: 200%;
-  height: 100%;
-  animation: lap 11s linear infinite;
-}
-.wave path { fill: var(--shallow); }
-.wave-back { top: -6px; animation-duration: 17s; animation-direction: reverse; }
-.wave-back path { fill: var(--foam); }
-@keyframes lap { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ============================================================
    LISTS
@@ -378,7 +267,7 @@ h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); font-weight: 600; letter-sp
   border-radius: 8px;
   border: 1px solid var(--fig-border);
   background: #fbfaf6;
-  box-shadow: 0 6px 20px rgba(4, 26, 51, 0.18);
+  box-shadow: 0 6px 20px rgba(20, 50, 90, 0.16);
 }
 .pub-fig img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.35s ease; }
 .pub-fig-contain img { object-fit: contain; padding: 8px; }
@@ -402,7 +291,7 @@ h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); font-weight: 600; letter-sp
 .pub-links { display: flex; flex-wrap: wrap; gap: 16px; margin: 0; font-family: var(--sans); font-size: 0.84rem; font-weight: 600; }
 
 /* ============================================================
-   FOOTER — the sea floor
+   FOOTER
    ============================================================ */
 footer { margin-top: 72px; padding: 28px 0 56px; border-top: 1px solid var(--rule); color: var(--muted); font-family: var(--sans); font-size: 0.84rem; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -418,7 +307,7 @@ footer { margin-top: 72px; padding: 28px 0 56px; border-top: 1px solid var(--rul
   .container, .nav-inner { width: calc(100% - 32px); }
   .nav-links { gap: 14px; }
   .nav-links a { font-size: 0.8rem; }
-  .hero { padding: 36px 0 76px; }
+  .hero { padding: 40px 0 28px; }
   .hero-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
   .avatar { width: 150px; height: 150px; }
   section { padding: 40px 0 4px; }
@@ -426,7 +315,6 @@ footer { margin-top: 72px; padding: 28px 0 56px; border-top: 1px solid var(--rul
   .pub { grid-template-columns: 1fr; }
   .pub-fig { width: 100%; height: auto; aspect-ratio: 3 / 2; }
   .exp li { grid-template-columns: 1fr; gap: 2px; }
-  .depth { right: 12px; bottom: 10px; }
 }
 @media (max-width: 480px) {
   .nav-links a:nth-child(4), .nav-links a:nth-child(5) { display: none; }
