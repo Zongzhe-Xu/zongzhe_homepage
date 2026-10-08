@@ -346,7 +346,8 @@
       var ctx = canvas.getContext('2d', { alpha: false });
       var PAPER = '#f4f1ea';
       var INK = '52, 66, 86', ACCENT = '181, 86, 58';
-      var COUNT_DIV = 8500, MAX = 200, TRAIL = 700, BUCKETS = 7, ALPHA = 0.42;
+      var COUNT_DIV = 5000, MAX = 340, TRAIL = 700, BUCKETS = 7, ALPHA = 0.24, ERODE_EVERY = 4;
+      var frame = 0;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var W, H, dpr, parts = [], t = Math.random() * 10, hidden = false;
 
@@ -362,14 +363,14 @@
         return (a + (b - a) * ux) * (1 - uy) + (c + (d - c) * ux) * uy;
       }
       function angle(x, y, tt) {
-        var n = noise(x * 0.0010 + tt, y * 0.0010) * 1.6 + noise(x * 0.004 - tt * 0.5, y * 0.004 + tt) * 0.22;
-        return n * Math.PI * 2.0;
+        var n = noise(x * 0.0013 + tt, y * 0.0013) * 1.6 + noise(x * 0.005 - tt * 0.5, y * 0.005 + tt) * 0.3;
+        return n * Math.PI * 2.4;
       }
       function spawn(p) {
         p.x = Math.random() * W; p.y = Math.random() * H;
-        p.life = 2400 + Math.random() * 4800;   // frames; roughly 40 to 120 s
+        p.life = 500 + Math.random() * 1100;    // frames the tip keeps drawing; the finished stroke then lingers and erodes for ~45 s
         p.dying = false;
-        p.bias = (Math.random() - 0.5) * 2.2;   // personal heading offset, so long strokes spread instead of bundling
+        p.bias = (Math.random() - 0.5) * 0.4;   // small personal heading offset, softens rope-like bundles
         p.sp = 0.9 + Math.random() * 1.1;
         p.ink = Math.random() < 0.06 ? ACCENT : INK;
         p.w = 0.6 + Math.random() * 0.6;
@@ -386,15 +387,15 @@
         var n = Math.min(MAX, Math.floor(W * H / COUNT_DIV));
         parts = []; for (var i = 0; i < n; i++) { var q = spawn({}); q.life *= Math.random(); parts.push(q); }  // staggered ages
         // stagger the trails so the first frame is already a drawing
-        for (var k = 0; k < TRAIL; k++) advance();
+        for (var k = 0; k < TRAIL * 2; k++) advance();
         draw();
       }
       function advance() {
-        t += 0.00045;
+        t += 0.00045; frame++;
         for (var i = 0; i < parts.length; i++) {
           var p = parts[i];
-          if (p.dying) {                       // tip has stopped; the trail erodes from its tail
-            p.n -= 1;
+          if (p.dying) {                       // tip has stopped; the trail erodes slowly from its tail
+            if (frame % ERODE_EVERY === 0) p.n -= 1;
             if (p.n <= 1) spawn(p);
             continue;
           }
