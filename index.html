@@ -18,19 +18,50 @@
 <body>
   <!-- ===================== PAINTED COAST (backdrop) ===================== -->
   <div class="coast" aria-hidden="true">
-    <span class="patch p1"></span>
-    <span class="patch p2"></span>
-    <span class="patch p3"></span>
-    <span class="patch p4"></span>
-    <span class="patch p5"></span>
-    <span class="patch p6"></span>
-    <span class="patch p7"></span>
-    <span class="patch p8"></span>
-    <span class="patch p9"></span>
-    <span class="patch p10"></span>
-    <span class="patch p11"></span>
-    <span class="patch p12"></span>
-    <div class="haze"></div>
+    <div class="sea">
+      <span class="patch w1"></span>
+      <span class="patch w2"></span>
+      <span class="patch w3"></span>
+      <span class="patch w4"></span>
+      <span class="patch w5"></span>
+      <span class="patch w6"></span>
+      <span class="patch w7"></span>
+      <span class="patch w8"></span>
+      <span class="patch w9"></span>
+      <span class="patch w10"></span>
+      <span class="patch w11"></span>
+      <span class="patch w12"></span>
+      <span class="patch w13"></span>
+      <span class="patch w14"></span>
+      <span class="patch w15"></span>
+      <span class="patch w16"></span>
+      <span class="patch w17"></span>
+      <span class="patch w18"></span>
+      <span class="patch w19"></span>
+      <span class="patch w20"></span>
+      <span class="patch w21"></span>
+      <span class="patch w22"></span>
+      <span class="patch w23"></span>
+      <span class="patch w24"></span>
+      <span class="patch w25"></span>
+      <span class="patch w26"></span>
+      <span class="patch w27"></span>
+      <span class="patch w28"></span>
+    </div>
+    <div class="shore">
+      <div class="sand-fill"></div>
+      <svg class="edge foam" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 0 H1440 V22 C 1360 36, 1290 56, 1200 50 S 1040 24, 960 34 S 820 60, 720 52 S 560 24, 460 32 S 300 58, 200 52 S 60 26, 0 36 Z"/></svg>
+      <svg class="edge beach" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 0 H1440 V22 C 1360 36, 1290 56, 1200 50 S 1040 24, 960 34 S 820 60, 720 52 S 560 24, 460 32 S 300 58, 200 52 S 60 26, 0 36 Z"/></svg>
+      <div class="dunes">
+        <span class="patch s1"></span>
+        <span class="patch s2"></span>
+        <span class="patch s3"></span>
+        <span class="patch s4"></span>
+        <span class="patch s5"></span>
+        <span class="patch s6"></span>
+        <span class="patch s7"></span>
+      </div>
+    </div>
   </div>
 
   <a class="skip" href="#about">Skip to content</a>
@@ -346,6 +377,22 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+
+    // --- Shoreline follows the hero ---------------------------------------
+    (function () {
+      var hero = document.getElementById('top');
+      var shore = document.querySelector('.shore');
+      var sea = document.querySelector('.sea');
+      function fit() {
+        var hh = hero.getBoundingClientRect().bottom + window.scrollY + 52;
+        shore.style.height = hh + 'px';
+        sea.style.top = (hh - 40) + 'px';
+      }
+      window.addEventListener('resize', fit);
+      window.addEventListener('load', fit);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      fit();
+    })();
 
     // --- Scroll reveal ----------------------------------------------------
     (function () {
