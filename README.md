@@ -1,16 +1,18 @@
 # Zongzhe Xu — Personal Homepage
 
-A lightweight, static academic homepage (plain HTML + CSS, no build step).
+A lightweight, static academic homepage (plain HTML + CSS + a little vanilla JS, no build step).
+Light/dark theme follows the system preference; the toggle in the nav overrides it.
 
 ## Structure
 
 ```
 zongzhe_homepage/
 ├── index.html      # Page content — edit here
-├── style.css       # Warm light-brown / wooden theme
+├── style.css       # "Sage & Linen" theme (light + dark)
 ├── .nojekyll       # Tells GitHub Pages to serve files as-is
 ├── images/
 │   ├── profile.png
+│   ├── inertia1.png
 │   ├── sleeplm.png
 │   ├── this_time_is_different.png
 │   └── sfm.png

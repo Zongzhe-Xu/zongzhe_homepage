@@ -2,261 +2,555 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zongzhe Xu | UCLA</title>
-  <meta name="description" content="Zongzhe Xu is a PhD student in Computer Science at UCLA, working on foundation models and multimodal learning for health." />
+  <meta name="description" content="Zongzhe Xu is a PhD student in Computer Science at UCLA, building foundation models for physiological and wearable health data." />
+  <meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#131a17" media="(prefers-color-scheme: dark)" />
+  <meta property="og:title" content="Zongzhe Xu | UCLA" />
+  <meta property="og:description" content="PhD student at UCLA working on foundation models for physiological and wearable health data." />
+  <meta property="og:image" content="images/profile.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233f6659'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='32' font-weight='700' text-anchor='middle' fill='%23f5f2ea'%3EZX%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <script>
+    // Apply saved theme before first paint to avoid a flash.
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-  <div class="container">
+  <a class="skip" href="#about">Skip to content</a>
 
-    <!-- ===================== HEADER / PROFILE CARD ===================== -->
-    <header class="profile">
-      <div class="avatar">
-        <img src="images/profile.png" alt="Zongzhe Xu" />
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark">ZX</span><span class="brand-name">Zongzhe Xu</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#publications">Publications</a>
+        <a href="#honors">Honors</a>
+        <a href="#education">Education</a>
       </div>
-      <div class="profile-info">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true">
+      <span class="blob blob-a"></span>
+      <span class="blob blob-b"></span>
+      <span class="blob blob-c"></span>
+    </div>
+
+    <div class="container hero-inner">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <img class="avatar" src="images/profile.png" alt="Portrait of Zongzhe Xu" width="220" height="220" />
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow">PhD Student &middot; Computer Science</p>
         <h1>Zongzhe Xu</h1>
-        <p class="tagline">PhD Student, Computer Science</p>
-        <p>University of California, Los Angeles</p>
-        <p>
-          <a href="mailto:zongzhex@ucla.edu">zongzhex@ucla.edu</a>
+        <p class="lede">
+          Building <span class="hl">foundation models</span> for physiological and wearable
+          health signals at the <a href="https://www.ucla.edu/" target="_blank" rel="noopener">University of California, Los Angeles</a>.
         </p>
-        <p class="links">
-          <a href="https://scholar.google.com/citations?user=N9qRCIIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
-          &nbsp;/&nbsp;
-          <a href="https://www.linkedin.com/in/zongzhe-xu-38aa121ab/" target="_blank" rel="noopener">LinkedIn</a>
-          &nbsp;/&nbsp;
-          <a href="cv/Zongzhe_Xu_CV.pdf" target="_blank" rel="noopener">CV</a>
-        </p>
+        <div class="hero-links">
+          <a class="pill" href="mailto:zongzhex@ucla.edu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Email
+          </a>
+          <a class="pill" href="https://scholar.google.com/citations?user=N9qRCIIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 9l10 6 10-6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11.5v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M22 9v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            Scholar
+          </a>
+          <a class="pill" href="https://github.com/Zongzhe-Xu" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.7.6-3.3-1.2-3.3-1.2-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.1-.2-4.4-1.1-4.4-4.7 0-1 .4-1.9 1-2.6-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.6 1a9 9 0 0 1 4.8 0c1.8-1.3 2.6-1 2.6-1 .5 1.3.2 2.3.1 2.5.6.7 1 1.6 1 2.6 0 3.6-2.3 4.5-4.4 4.7.3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.5z" fill="currentColor"/></svg>
+            GitHub
+          </a>
+          <a class="pill" href="https://www.linkedin.com/in/zongzhe-xu-38aa121ab/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5h3V20h-3zM6 4.3a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4zM10 9.5h2.9v1.5c.4-.8 1.5-1.7 3.2-1.7 3.3 0 3.9 2.2 3.9 5V20h-3v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V20h-3z" fill="currentColor"/></svg>
+            LinkedIn
+          </a>
+          <a class="pill pill-solid" href="cv/Zongzhe_Xu_CV.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5M10 13h6M10 17h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            CV
+          </a>
+        </div>
       </div>
-    </header>
+    </div>
+
+    <div class="container">
+      <svg class="hero-wave" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wave-line" d="M0 70 C 60 20, 120 110, 180 64 S 300 30, 360 70 S 480 100, 540 52 S 660 20, 720 70 S 840 112, 900 60 S 1020 30, 1080 72 S 1170 100, 1200 60" />
+        <path class="wave-line wave-line-2" d="M0 80 C 70 60, 130 100, 200 76 S 330 50, 400 80 S 540 110, 610 70 S 740 40, 810 80 S 950 112, 1020 72 S 1150 50, 1200 76" />
+      </svg>
+    </div>
+
+    <!-- Highlights strip -->
+    <div class="container">
+      <ul class="highlights" aria-label="Recent highlights">
+        <li class="hl-card reveal">
+          <span class="hl-badge badge-award">Fellowship</span>
+          <span class="hl-title">Amazon AI PhD Fellow</span>
+          <span class="hl-sub">Oct. 2026</span>
+        </li>
+        <li class="hl-card reveal">
+          <span class="hl-badge badge-oral">NeurIPS 2026 &middot; Workshop Oral</span>
+          <span class="hl-title">Inertia-1: Wearable Motion Foundation Models</span>
+          <span class="hl-sub">Main track + Oral at GenAI4Health</span>
+        </li>
+        <li class="hl-card reveal">
+          <span class="hl-badge badge-spotlight">ICML 2026 &middot; Spotlight</span>
+          <span class="hl-title">SleepLM: Natural-Language Intelligence for Human Sleep</span>
+          <span class="hl-sub">Sleep-language foundation models</span>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
 
     <!-- ===================== ABOUT ===================== -->
-    <section>
-      <h2>About</h2>
-      <p>
-        I am a first-year Computer Science PhD student at
-        <a href="https://www.ucla.edu/" target="_blank" rel="noopener">UCLA</a>,
-        working with Prof.
-        <a href="https://people.csail.mit.edu/yuzhe/" target="_blank" rel="noopener">Yuzhe Yang</a>
-        in the Health Intelligence Lab (HAIL).
-        Before UCLA, I completed my M.S. in Machine Learning at
-        <a href="https://www.ml.cmu.edu/" target="_blank" rel="noopener">Carnegie Mellon University</a>,
-        where I worked with Prof.
-        <a href="https://www.cs.cmu.edu/~atalwalk/" target="_blank" rel="noopener">Ameet Talwalkar</a>
-        and Prof.
-        <a href="https://pages.cs.wisc.edu/~khodak/" target="_blank" rel="noopener">Mikhail Khodak</a>
-        in the Sage Lab.
-        Earlier, I earned my B.S. in Computer Science and Mathematics
-        (<em>summa cum laude</em>) at
-        <a href="https://wustl.edu/" target="_blank" rel="noopener">Washington University in St. Louis</a>,
-        where I did clinical research with Dr.
-        <a href="https://profiles.wustl.edu/en/persons/peinan-zhao/" target="_blank" rel="noopener">Peinan Zhao</a>
-        at the OBGYN department of the WashU School of Medicine.
-      </p>
-      <p>
-        Outside of academia, I spent time at
-        <a href="https://www.datadoghq.com/" target="_blank" rel="noopener">Datadog</a>
-        as a Data Scientist Intern contributing to a time-series foundation model.
-      </p>
+    <section id="about" class="reveal">
+      <h2><span class="num">01</span>About</h2>
+      <div class="prose">
+        <p>
+          I am a second-year Computer Science PhD student at
+          <a href="https://www.ucla.edu/" target="_blank" rel="noopener">UCLA</a>,
+          working with Prof.
+          <a href="https://people.csail.mit.edu/yuzhe/" target="_blank" rel="noopener">Yuzhe Yang</a>
+          in the Health Intelligence Lab (HAIL). My research is supported by an
+          <strong>Amazon AI PhD Fellowship</strong>.
+          Before UCLA, I completed my M.S. in Machine Learning at
+          <a href="https://www.ml.cmu.edu/" target="_blank" rel="noopener">Carnegie Mellon University</a>,
+          where I worked with Prof.
+          <a href="https://www.cs.cmu.edu/~atalwalk/" target="_blank" rel="noopener">Ameet Talwalkar</a>
+          and Prof.
+          <a href="https://pages.cs.wisc.edu/~khodak/" target="_blank" rel="noopener">Mikhail Khodak</a>
+          in the Sage Lab.
+          Earlier, I earned my B.S. in Computer Science and Mathematics
+          (<em>summa cum laude</em>) at
+          <a href="https://wustl.edu/" target="_blank" rel="noopener">Washington University in St. Louis</a>,
+          where I did clinical research with Dr.
+          <a href="https://profiles.wustl.edu/en/persons/peinan-zhao/" target="_blank" rel="noopener">Peinan Zhao</a>
+          at the OBGYN department of the WashU School of Medicine.
+        </p>
+        <p>
+          Outside of academia, I spent time at
+          <a href="https://www.datadoghq.com/" target="_blank" rel="noopener">Datadog</a>
+          as a Data Scientist Intern contributing to
+          <a href="https://github.com/DataDog/toto" target="_blank" rel="noopener">TOTO</a>,
+          a time-series foundation model for observability data.
+        </p>
+      </div>
     </section>
 
-    <!-- ===================== RESEARCH INTERESTS ===================== -->
-    <section>
-      <h2>What I Work On</h2>
-      <p>
-        I build machine learning systems for <strong>health</strong>, with a current
-        focus on <strong>physiological and wearable biosignals</strong> such as
-        polysomnography and motion data. A person's health is only partially captured
-        by any single measurement, and I am interested in models that can learn useful,
-        transferable representations from these noisy, multimodal, and often incomplete
-        observations. My current directions include:
-      </p>
-      <ul class="interests">
-        <li><strong>Foundation models for biosignals &amp; wearable health data</strong></li>
-        <li><strong>Multimodal learning &amp; language interfaces for health</strong></li>
-        <li><strong>Sleep and physiological signal understanding</strong></li>
-      </ul>
-      <p>
-        More broadly, I care about designing models whose architectures and objectives
-        are tailored to the structure of real measurements that remain
-        useful, interpretable, and transferable across clinical settings. I am always
-        happy to chat about collaborations in these areas.
-      </p>
+    <!-- ===================== RESEARCH ===================== -->
+    <section id="research" class="reveal">
+      <h2><span class="num">02</span>What I Work On</h2>
+      <div class="prose">
+        <p>
+          I build machine learning systems for <strong>health</strong>, with a current
+          focus on <strong>physiological and wearable biosignals</strong> such as
+          polysomnography and motion data. A person's health is only partially captured
+          by any single measurement, and I am interested in models that can learn useful,
+          transferable representations from these noisy, multimodal, and often incomplete
+          observations.
+        </p>
+      </div>
+      <div class="interest-grid">
+        <div class="interest-card">
+          <div class="interest-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 12h3l2-6 3 12 3-9 2 3h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Biosignal foundation models</h3>
+          <p>Pre-training and scaling recipes for sleep, motion, and other wearable health data.</p>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Multimodal &amp; language interfaces</h3>
+          <p>Connecting raw physiology with natural language so models can describe, retrieve, and reason about health.</p>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 3h4M18 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Sleep &amp; physiology understanding</h3>
+          <p>Models that stay useful, interpretable, and transferable across clinical and at-home settings.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>
+          More broadly, I care about designing models whose architectures and objectives
+          are tailored to the structure of real measurements. I am always
+          happy to chat about collaborations in these areas.
+        </p>
+      </div>
     </section>
 
     <!-- ===================== NEWS ===================== -->
-    <section>
-      <h2>News</h2>
-      <ul class="news">
-        <li><span class="date">[Apr. 2026]</span><span class="news-text">Homepage is up! Always looking for collaborations in AI for health.</span></li>
-        <li><span class="date">[2026]</span><span class="news-text"><em>SleepLM: Natural-Language Intelligence for Human Sleep</em> is on arXiv!</span></li>
-        <li><span class="date">[2026]</span><span class="news-text"><em>OSF: On Pre-training and Scaling of Sleep Foundation Models</em> is on arXiv!</span></li>
-        <li><span class="date">[Sep. 2025]</span><span class="news-text">Our work on time-series foundation models, <em>This Time is Different: An Observability Perspective on Time Series Foundation Models</em>, accepted at NeurIPS 2025!</span></li>
-        <li><span class="date">[Aug. 2025]</span><span class="news-text">Started my PhD at UCLA in the HAIL Lab with Prof. Yuzhe Yang!</span></li>
-        <li><span class="date">[Jan. 2025]</span><span class="news-text">Joined Datadog as a Data Scientist Intern working on TOTO.</span></li>
-        <li><span class="date">[Jan. 2025]</span><span class="news-text"><em>Specialized Foundation Models Struggle to Beat Supervised Baselines</em> accepted at ICLR 2025!</span></li>
-        <li><span class="date">[Jan. 2025]</span><span class="news-text"><em>V2X-DG: Domain Generalization for Vehicle-to-Everything Cooperative Perception</em> accepted at ICRA 2025!</span></li>
-        <li><span class="date">[Dec. 2024]</span><span class="news-text">Graduated from CMU with an M.S. in Machine Learning.</span></li>
+    <section id="news" class="reveal">
+      <h2><span class="num">03</span>News</h2>
+      <ol class="timeline">
+        <li class="tl-item tl-hot">
+          <span class="tl-date">Oct. 2026</span>
+          <div class="tl-body">
+            <span class="tag tag-award">Fellowship</span>
+            Honored to be selected as an <strong>Amazon AI PhD Fellow</strong>. Thank you, Amazon and the UCLA Science Hub!
+          </div>
+        </li>
+        <li class="tl-item tl-hot">
+          <span class="tl-date">Sep. 2026</span>
+          <div class="tl-body">
+            <span class="tag tag-oral">Oral</span>
+            <em>Inertia-1</em> is selected for an <strong>oral presentation</strong> at the
+            <a href="https://aihealth.ischool.utexas.edu/GenAI4HealthNeurips2026/" target="_blank" rel="noopener">GenAI4Health workshop</a> at NeurIPS 2026!
+          </div>
+        </li>
+        <li class="tl-item tl-hot">
+          <span class="tl-date">Sep. 2026</span>
+          <div class="tl-body">
+            <span class="tag tag-accept">NeurIPS 2026</span>
+            <em>Inertia-1: An Open Exploration of Wearable Motion Foundation Models</em> is accepted at NeurIPS 2026!
+          </div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">Jul. 2026</span>
+          <div class="tl-body">
+            <em>Inertia-1</em> is on <a href="https://arxiv.org/abs/2607.06617" target="_blank" rel="noopener">arXiv</a>, with
+            <a href="https://github.com/yang-ai-lab/Inertia-1" target="_blank" rel="noopener">code</a> and a
+            <a href="https://yang-ai-lab.github.io/Inertia-1/" target="_blank" rel="noopener">project page</a>.
+          </div>
+        </li>
+        <li class="tl-item tl-hot">
+          <span class="tl-date">Apr. 2026</span>
+          <div class="tl-body">
+            <span class="tag tag-spotlight">Spotlight</span>
+            <em>SleepLM</em> is accepted at ICML 2026 as a <strong>Spotlight</strong>!
+            <em>OSF</em> is also accepted at ICML 2026.
+          </div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">Apr. 2026</span>
+          <div class="tl-body">Homepage is up! Always looking for collaborations in AI for health.</div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">Feb. 2026</span>
+          <div class="tl-body">
+            <em>SleepLM: Natural-Language Intelligence for Human Sleep</em> and
+            <em>OSF: On Pre-training and Scaling of Sleep Foundation Models</em> are on arXiv!
+          </div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">Sep. 2025</span>
+          <div class="tl-body">
+            <span class="tag tag-accept">NeurIPS 2025</span>
+            Our work on time-series foundation models, <em>This Time is Different: An Observability Perspective on Time Series Foundation Models</em>, is accepted at NeurIPS 2025!
+          </div>
+        </li>
+        <li class="tl-item tl-more">
+          <span class="tl-date">Aug. 2025</span>
+          <div class="tl-body">Started my PhD at UCLA in the HAIL Lab with Prof. Yuzhe Yang!</div>
+        </li>
+        <li class="tl-item tl-more">
+          <span class="tl-date">Jan. 2025</span>
+          <div class="tl-body">Joined Datadog as a Data Scientist Intern working on TOTO.</div>
+        </li>
+        <li class="tl-item tl-more">
+          <span class="tl-date">Jan. 2025</span>
+          <div class="tl-body">
+            <span class="tag tag-accept">ICLR 2025</span>
+            <em>Specialized Foundation Models Struggle to Beat Supervised Baselines</em> is accepted at ICLR 2025!
+          </div>
+        </li>
+        <li class="tl-item tl-more">
+          <span class="tl-date">Jan. 2025</span>
+          <div class="tl-body">
+            <span class="tag tag-accept">ICRA 2025</span>
+            <em>V2X-DG: Domain Generalization for Vehicle-to-Everything Cooperative Perception</em> is accepted at ICRA 2025!
+          </div>
+        </li>
+        <li class="tl-item tl-more">
+          <span class="tl-date">Dec. 2024</span>
+          <div class="tl-body">Graduated from CMU with an M.S. in Machine Learning.</div>
+        </li>
+      </ol>
+      <button class="more-btn" id="news-more" type="button" aria-expanded="false">Show older news</button>
+    </section>
+
+    <!-- ===================== PUBLICATIONS ===================== -->
+    <section id="publications" class="reveal">
+      <h2><span class="num">04</span>Publications</h2>
+      <p class="note">A few recent works I am most excited about. See my <a href="https://scholar.google.com/citations?user=N9qRCIIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> for the complete list. <span class="sub">(* indicates equal contribution.)</span></p>
+
+      <!-- ============ Paper: Inertia-1 / NeurIPS 2026 ============ -->
+      <article class="pub">
+        <a class="pub-fig pub-fig-contain" href="https://yang-ai-lab.github.io/Inertia-1/" target="_blank" rel="noopener">
+          <img src="images/inertia1.png" alt="Inertia-1 teaser: a wrist-worn accelerometer model transferring to sensors across the body" loading="lazy" />
+        </a>
+        <div class="pub-info">
+          <div class="badges">
+            <span class="venue">NeurIPS 2026</span>
+            <span class="award award-oral">Oral @ GenAI4Health Workshop</span>
+          </div>
+          <h3 class="title">
+            <a href="https://arxiv.org/abs/2607.06617" target="_blank" rel="noopener">Inertia-1: An Open Exploration of Wearable Motion Foundation Models</a>
+          </h3>
+          <p class="authors">
+            <strong>Zongzhe Xu</strong>, Aakarsh Anand, Sarah Jiang, Chuntung Zhuang, Zitao Shuai, Sriram Sankararaman, Yuzhe Yang
+          </p>
+          <p class="meta">Conference on Neural Information Processing Systems (NeurIPS), 2026</p>
+          <p class="desc">An open cookbook for pre-training wearable motion foundation models on 18M+ hours of accelerometry from 110K+ people, with recipes that transfer across placements, sensors, and 15 downstream tasks.</p>
+          <div class="pub-links">
+            <a class="btn" href="https://arxiv.org/abs/2607.06617" target="_blank" rel="noopener">arXiv</a>
+            <a class="btn" href="https://github.com/yang-ai-lab/Inertia-1" target="_blank" rel="noopener">Code</a>
+            <a class="btn" href="https://yang-ai-lab.github.io/Inertia-1/" target="_blank" rel="noopener">Project page</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ Paper: SleepLM / ICML 2026 ============ -->
+      <article class="pub">
+        <a class="pub-fig" href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">
+          <img src="images/sleeplm.png" alt="SleepLM teaser figure" loading="lazy" />
+        </a>
+        <div class="pub-info">
+          <div class="badges">
+            <span class="venue">ICML 2026</span>
+            <span class="award award-spotlight">Spotlight</span>
+          </div>
+          <h3 class="title">
+            <a href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">SleepLM: Natural-Language Intelligence for Human Sleep</a>
+          </h3>
+          <p class="authors">
+            <strong>Zongzhe Xu</strong>, Zitao Shuai, Eideen Mozaffari, Ravi S. Aysola, Rajesh Kumar, Yuzhe Yang
+          </p>
+          <p class="meta">International Conference on Machine Learning (ICML), 2026</p>
+          <p class="desc">Sleep-language foundation models trained on the first large-scale sleep-text dataset (100K+ hours from 10K+ people), enabling open-vocabulary description, retrieval, and reasoning about sleep physiology.</p>
+          <div class="pub-links">
+            <a class="btn" href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">arXiv</a>
+            <a class="btn" href="https://github.com/yang-ai-lab/SleepLM" target="_blank" rel="noopener">Code</a>
+            <a class="btn" href="https://huggingface.co/yang-ai-lab/SleepLM-Base" target="_blank" rel="noopener">Model</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ Paper: TOTO / NeurIPS 2025 ============ -->
+      <article class="pub">
+        <a class="pub-fig" href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">
+          <img src="images/this_time_is_different.png" alt="This Time is Different (TOTO) teaser figure" loading="lazy" />
+        </a>
+        <div class="pub-info">
+          <div class="badges">
+            <span class="venue">NeurIPS 2025</span>
+          </div>
+          <h3 class="title">
+            <a href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">This Time is Different: An Observability Perspective on Time Series Foundation Models</a>
+          </h3>
+          <p class="authors">
+            Ben Cohen, Emaad Khwaja, &hellip; <strong>Zongzhe Xu</strong>, &hellip;
+            David Asker, Ameet Talwalkar, Othmane Abou-Amal
+          </p>
+          <p class="meta">Conference on Neural Information Processing Systems (NeurIPS), 2025</p>
+          <div class="pub-links">
+            <a class="btn" href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">arXiv</a>
+            <a class="btn" href="https://github.com/DataDog/toto" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ Paper: Specialized FMs / ICLR 2025 ============ -->
+      <article class="pub">
+        <a class="pub-fig" href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">
+          <img src="images/sfm.png" alt="Specialized Foundation Models teaser figure" loading="lazy" />
+        </a>
+        <div class="pub-info">
+          <div class="badges">
+            <span class="venue">ICLR 2025</span>
+          </div>
+          <h3 class="title">
+            <a href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">Specialized Foundation Models Struggle to Beat Supervised Baselines</a>
+          </h3>
+          <p class="authors">
+            <strong>Zongzhe Xu</strong>*, Ritvik Gupta*, Wenduo Cheng, Alexander Shen, Junhong Shen, Ameet Talwalkar, Mikhail Khodak
+          </p>
+          <p class="meta">International Conference on Learning Representations (ICLR), 2025</p>
+          <div class="pub-links">
+            <a class="btn" href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">arXiv</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================== HONORS ===================== -->
+    <section id="honors" class="reveal">
+      <h2><span class="num">05</span>Honors &amp; Awards</h2>
+      <ul class="honors">
+        <li>
+          <span class="when">2026</span>
+          <span class="what"><strong>Amazon AI PhD Fellowship</strong>, Amazon &amp; UCLA Science Hub for Humanity and AI</span>
+        </li>
+        <li>
+          <span class="when">2026</span>
+          <span class="what"><strong>Spotlight</strong>, ICML 2026 (SleepLM)</span>
+        </li>
+        <li>
+          <span class="when">2026</span>
+          <span class="what"><strong>Oral Presentation</strong>, GenAI4Health Workshop at NeurIPS 2026 (Inertia-1)</span>
+        </li>
+        <li>
+          <span class="when">2019&ndash;2023</span>
+          <span class="what"><strong>Dean Select Fellowship</strong> and <em>summa cum laude</em>, Washington University in St. Louis</span>
+        </li>
       </ul>
     </section>
 
-    <!-- ===================== SELECTED PUBLICATIONS ===================== -->
-    <section>
-      <h2>Publications</h2>
-      <p class="note">A few recent works I am most excited about. See my <a href="https://scholar.google.com/citations?user=N9qRCIIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> for the complete list. <span class="sub">(* indicates equal contribution.)</span></p>
-
-      <!-- ============ Paper: SleepLM ============ -->
-      <div class="pub">
-        <div class="pub-fig">
-          <a href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">
-            <img src="images/sleeplm.png" alt="SleepLM teaser figure" />
-          </a>
-        </div>
-        <div class="pub-info">
-          <div class="venue">ICML 2026</div>
-          <div class="title">
-            <a href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">
-              SleepLM: Natural-Language Intelligence for Human Sleep
-            </a>
-          </div>
-          <div class="authors">
-            <strong>Zongzhe Xu</strong>, Zitao Shuai, Eideen Mozaffari, Ravi S. Aysola, Rajesh Kumar, Yuzhe Yang
-          </div>
-          <div class="meta">
-            <em>International Conference on Machine Learning (ICML), 2026</em>
-          </div>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2602.23605" target="_blank" rel="noopener">arXiv</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ Paper: TOTO / NeurIPS 2025 ============ -->
-      <div class="pub">
-        <div class="pub-fig">
-          <a href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">
-            <img src="images/this_time_is_different.png" alt="This Time is Different (TOTO) teaser figure" />
-          </a>
-        </div>
-        <div class="pub-info">
-          <div class="venue">NeurIPS 2025</div>
-          <div class="title">
-            <a href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">
-              This Time is Different: An Observability Perspective on Time Series Foundation Models
-            </a>
-          </div>
-          <div class="authors">
-            Ben Cohen, Emaad Khwaja, &hellip; <strong>Zongzhe Xu</strong>, &hellip;
-            David Asker, Ameet Talwalkar, Othmane Abou-Amal
-          </div>
-          <div class="meta">
-            <em>Conference on Neural Information Processing Systems (NeurIPS), 2025</em>
-          </div>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2505.14766" target="_blank" rel="noopener">arXiv</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ Paper: Specialized FMs ============ -->
-      <div class="pub">
-        <div class="pub-fig">
-          <a href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">
-            <img src="images/sfm.png" alt="Specialized Foundation Models teaser figure" />
-          </a>
-        </div>
-        <div class="pub-info">
-          <div class="venue">ICLR 2025</div>
-          <div class="title">
-            <a href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">
-              Specialized Foundation Models Struggle to Beat Supervised Baselines
-            </a>
-          </div>
-          <div class="authors">
-            <strong>Zongzhe Xu</strong>*, Ritvik Gupta*, Wenduo Cheng, Alexander Shen, Junhong Shen, Ameet Talwalkar, Mikhail Khodak
-          </div>
-          <div class="meta">
-            <em>International Conference on Learning Representations (ICLR), 2025</em>
-          </div>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2411.02796" target="_blank" rel="noopener">arXiv</a>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
     <!-- ===================== EDUCATION ===================== -->
-    <section>
-      <h2>Education</h2>
+    <section id="education" class="reveal">
+      <h2><span class="num">06</span>Education</h2>
       <ul class="exp">
         <li>
-          <span class="when">[Aug. 2025 &ndash; Present]</span>
+          <span class="when">Aug. 2025 &ndash; Present</span>
           <span class="what">
-            Ph.D. in Computer Science, University of California, Los Angeles.
+            <strong>Ph.D. in Computer Science</strong><br />
+            University of California, Los Angeles
           </span>
         </li>
         <li>
-          <span class="when">[Aug. 2023 &ndash; Dec. 2024]</span>
+          <span class="when">Aug. 2023 &ndash; Dec. 2024</span>
           <span class="what">
-            M.S. in Machine Learning, Carnegie Mellon University.
+            <strong>M.S. in Machine Learning</strong><br />
+            Carnegie Mellon University
           </span>
         </li>
         <li>
-          <span class="when">[Sep. 2019 &ndash; May 2023]</span>
+          <span class="when">Sep. 2019 &ndash; May 2023</span>
           <span class="what">
-            B.S. in Computer Science &amp; Mathematics
-            (<em>summa cum laude</em>, minors in Bioinformatics and Biology),
-            Washington University in St. Louis.
+            <strong>B.S. in Computer Science &amp; Mathematics</strong><br />
+            Washington University in St. Louis
+            <span class="muted">(<em>summa cum laude</em>, minors in Bioinformatics and Biology)</span>
           </span>
         </li>
       </ul>
     </section>
 
     <!-- ===================== TEACHING ===================== -->
-    <section>
-      <h2>Teaching</h2>
-      <ul>
+    <section id="teaching" class="reveal">
+      <h2><span class="num">07</span>Teaching</h2>
+      <ul class="exp">
         <li>
-          Teaching Assistant, <strong>CSE 412 Introduction to Artificial Intelligence</strong>,
-          Washington University in St. Louis, Sep. 2021 &ndash; Jun. 2022.
+          <span class="when">Sep. 2021 &ndash; Jun. 2022</span>
+          <span class="what">Teaching Assistant, <strong>CSE 412 Introduction to Artificial Intelligence</strong>, Washington University in St. Louis</span>
         </li>
         <li>
-          Teaching Assistant, <strong>CSE 417 Machine Learning Theory</strong>,
-          Washington University in St. Louis, Sep. 2021 &ndash; Jun. 2022.
+          <span class="when">Sep. 2021 &ndash; Jun. 2022</span>
+          <span class="what">Teaching Assistant, <strong>CSE 417 Machine Learning Theory</strong>, Washington University in St. Louis</span>
         </li>
       </ul>
     </section>
 
     <!-- ===================== FUN FACTS ===================== -->
-    <section>
-      <h2>A Few Things About Me</h2>
-      <p>
-        Away from the keyboard, I have been falling deep into
-        bouldering and climbing, and I am steadily working my way into
-        more hiking and skiing. Long before I picked up
-        a lab notebook, I played competitive badminton &mdash; I hold a
-        National Second-Class Athlete certification in China. If you want
-        to talk research, share a climbing gym recommendation, or rally a few points,
-        drop me a line.
-      </p>
+    <section id="about-me" class="reveal">
+      <h2><span class="num">08</span>A Few Things About Me</h2>
+      <div class="prose">
+        <p>
+          Away from the keyboard, I have been falling deep into
+          bouldering and climbing, and I am steadily working my way into
+          more hiking and skiing. Long before I picked up
+          a lab notebook, I played competitive badminton &mdash; I hold a
+          National Second-Class Athlete certification in China. If you want
+          to talk research, share a climbing gym recommendation, or rally a few points,
+          drop me a line.
+        </p>
+      </div>
     </section>
+  </main>
 
-    <!-- ===================== FOOTER ===================== -->
-    <footer>
-      <p>
-        &copy; <span id="year"></span> Zongzhe Xu &middot; Last updated
-        <span id="last-updated">April 2026</span>.
-      </p>
-    </footer>
-  </div>
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Zongzhe Xu &middot; Last updated October 2026.</p>
+      <a class="to-top" href="#top">Back to top &uarr;</a>
+    </div>
+  </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (system preference by default; click to override, saved in localStorage).
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('theme-toggle');
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t) return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+
+    // Scroll reveal.
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Older news toggle.
+    (function () {
+      var btn = document.getElementById('news-more');
+      var list = btn.previousElementSibling;
+      btn.addEventListener('click', function () {
+        var open = list.classList.toggle('show-all');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Show fewer' : 'Show older news';
+      });
+    })();
+
+    // Highlight the nav link for the section in view.
+    (function () {
+      var links = document.querySelectorAll('.nav-links a');
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+      var sections = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      if (!('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(function (s) { io.observe(s); });
+    })();
   </script>
 </body>
 </html>
