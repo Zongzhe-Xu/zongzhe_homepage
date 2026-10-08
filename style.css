@@ -1,7 +1,7 @@
 /* ============================================================
    Zongzhe Xu - academic homepage
    Theme: "Ink on paper" — warm paper, dark ink, and a slowly
-   evolving generative line drawing (a flow field) behind the page.
+   shifting contour drawing behind the page.
    ============================================================ */
 
 :root {
@@ -99,8 +99,8 @@ section:first-of-type { padding-top: 64px; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 
 /* ============================================================
-   BACKDROP — the ink flow field canvas (drawn by the script in
-   index.html). Fixed behind everything.
+   BACKDROP — the contour canvas (drawn by the script in index.html).
+   Fixed behind everything.
    ============================================================ */
 #field {
   position: fixed;

@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===================== BACKDROP: ink flow field ===================== -->
+  <!-- ===================== BACKDROP: contour drawing ===================== -->
   <canvas id="field" aria-hidden="true"></canvas>
 
   <a class="skip" href="#about">Skip to content</a>
@@ -336,18 +336,17 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    // --- Ink flow field --------------------------------------------------
-    // Thin strokes follow a slowly drifting noise field and leave fading
-    // trails on the paper. Reduced-motion users get a single still drawing.
+    // --- Contour drawing ---------------------------------------------------
+    // Level lines of a slowly drifting noise field, redrawn each frame with
+    // marching squares. Reduced-motion users get a single still drawing.
     (function () {
       var canvas = document.getElementById('field');
       var ctx = canvas.getContext('2d', { alpha: false });
-      var PAPER = '#f4f1ea';
-      var INK = 'rgba(52, 66, 86, 0.13)', ACCENT = 'rgba(181, 86, 58, 0.14)';
+      var PAPER = '#f4f1ea', INK = 'rgba(52, 66, 86, 0.26)';
+      var CELL = 10, LEVELS = 11, SPEED = 0.00028;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var W, H, dpr, parts = [], t = 0, raf = null, hidden = false;
+      var W, H, dpr, t = Math.random() * 10, hidden = false, cols, rows, g;
 
-      // 2-D value noise with a smooth hash; cheap and good enough for a field.
       function hash(ix, iy) {
         var n = ix * 374761393 + iy * 668265263;
         n = (n ^ (n >>> 13)) * 1274126177;
@@ -359,17 +358,8 @@
         var a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
         return (a + (b - a) * ux) * (1 - uy) + (c + (d - c) * ux) * uy;
       }
-      function angle(x, y, tt) {
-        var n = noise(x * 0.0010 + tt, y * 0.0010) * 1.6 + noise(x * 0.004 - tt * 0.5, y * 0.004 + tt) * 0.22;
-        return n * Math.PI * 2.0;
-      }
-      function spawn(p) {
-        p.x = Math.random() * W; p.y = Math.random() * H;
-        p.life = 260 + Math.random() * 520;
-        p.sp = 0.8 + Math.random() * 1.0;
-        p.ink = Math.random() < 0.06 ? ACCENT : INK;
-        p.w = 0.6 + Math.random() * 0.6;
-        return p;
+      function field(x, y, tt) {
+        return noise(x * 0.0019 + tt, y * 0.0019) * 0.75 + noise(x * 0.007 - tt * 0.5, y * 0.007 + tt) * 0.25;
       }
       function resize() {
         dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -377,26 +367,41 @@
         canvas.width = W * dpr; canvas.height = H * dpr;
         canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cols = Math.ceil(W / CELL) + 1; rows = Math.ceil(H / CELL) + 1;
+        g = new Float32Array(cols * rows);
+        draw();
+      }
+      function draw() {
         ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
-        var n = Math.min(420, Math.floor(W * H / 5200));
-        parts = []; for (var i = 0; i < n; i++) parts.push(spawn({}));
-        if (reduce) { for (var k = 0; k < 520; k++) step(false); }
-      }
-      function step(fade) {
-        if (fade) { ctx.fillStyle = 'rgba(244, 241, 234, 0.022)'; ctx.fillRect(0, 0, W, H); }
-        t += 0.00045;
-        ctx.lineCap = 'round';
-        for (var i = 0; i < parts.length; i++) {
-          var p = parts[i];
-          var a = angle(p.x, p.y, t);
-          var nx = p.x + Math.cos(a) * p.sp, ny = p.y + Math.sin(a) * p.sp;
-          ctx.strokeStyle = p.ink; ctx.lineWidth = p.w;
-          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
-          p.x = nx; p.y = ny;
-          if (--p.life < 0 || nx < -5 || ny < -5 || nx > W + 5 || ny > H + 5) spawn(p);
+        for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) g[j * cols + i] = field(i * CELL, j * CELL, t);
+        ctx.strokeStyle = INK; ctx.lineWidth = 0.8; ctx.lineCap = 'round';
+        ctx.beginPath();
+        for (var L = 0; L < LEVELS; L++) {
+          var iso = 0.25 + L * 0.05;
+          for (var jj = 0; jj < rows - 1; jj++) for (var ii = 0; ii < cols - 1; ii++) {
+            var a = g[jj * cols + ii], b = g[jj * cols + ii + 1], c = g[(jj + 1) * cols + ii + 1], d = g[(jj + 1) * cols + ii];
+            var idx = (a > iso ? 8 : 0) | (b > iso ? 4 : 0) | (c > iso ? 2 : 0) | (d > iso ? 1 : 0);
+            if (idx === 0 || idx === 15) continue;
+            var x0 = ii * CELL, y0 = jj * CELL;
+            var top = [x0 + CELL * (iso - a) / (b - a), y0], right = [x0 + CELL, y0 + CELL * (iso - b) / (c - b)];
+            var bot = [x0 + CELL * (iso - d) / (c - d), y0 + CELL], left = [x0, y0 + CELL * (iso - a) / (d - a)];
+            var s;
+            switch (idx) {
+              case 1: case 14: s = [[left, bot]]; break;
+              case 2: case 13: s = [[bot, right]]; break;
+              case 3: case 12: s = [[left, right]]; break;
+              case 4: case 11: s = [[top, right]]; break;
+              case 5: s = [[top, left], [bot, right]]; break;
+              case 6: case 9: s = [[top, bot]]; break;
+              case 7: case 8: s = [[top, left]]; break;
+              case 10: s = [[top, right], [left, bot]]; break;
+            }
+            for (var k = 0; k < s.length; k++) { ctx.moveTo(s[k][0][0], s[k][0][1]); ctx.lineTo(s[k][1][0], s[k][1][1]); }
+          }
         }
+        ctx.stroke();
       }
-      function loop() { if (!hidden) step(true); raf = requestAnimationFrame(loop); }
+      function loop() { if (!hidden) { t += SPEED; draw(); } requestAnimationFrame(loop); }
       var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 150); });
       document.addEventListener('visibilitychange', function () { hidden = document.hidden; });
       resize();
