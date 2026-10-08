@@ -360,8 +360,8 @@
         return (a + (b - a) * ux) * (1 - uy) + (c + (d - c) * ux) * uy;
       }
       function angle(x, y, tt) {
-        var n = noise(x * 0.0013 + tt, y * 0.0013) * 1.6 + noise(x * 0.005 - tt * 0.5, y * 0.005 + tt) * 0.3;
-        return n * Math.PI * 2.4;
+        var n = noise(x * 0.0010 + tt, y * 0.0010) * 1.6 + noise(x * 0.004 - tt * 0.5, y * 0.004 + tt) * 0.22;
+        return n * Math.PI * 2.0;
       }
       function spawn(p) {
         p.x = Math.random() * W; p.y = Math.random() * H;
