@@ -18,7 +18,7 @@ zongzhe_homepage/
 │   ├── this_time_is_different.png
 │   └── sfm.png
 ├── cv/
-│   └── Zongzhe_Xu_CV.pdf
+│   └── Zongzhe's CV_20261013.pdf
 └── README.md
 ```
 
